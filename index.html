@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Payment Website</title>
+
+  <title>Modern Payment</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
@@ -21,13 +23,18 @@
     body{
       min-height:100vh;
       background:
-      linear-gradient(135deg,#0f172a,#172554,#2563eb);
-      overflow-x:hidden;
+      linear-gradient(
+        135deg,
+        #0f172a,
+        #172554,
+        #2563eb
+      );
       color:white;
-      padding:30px;
       display:flex;
       justify-content:center;
       align-items:center;
+      padding:30px;
+      overflow-x:hidden;
     }
 
     .container{
@@ -46,9 +53,9 @@
       border-radius:50%;
       object-fit:cover;
       padding:10px;
-      background:rgba(255,255,255,0.1);
-      border:2px solid rgba(255,255,255,0.2);
-      box-shadow:0 0 40px rgba(255,255,255,0.2);
+      background:rgba(255,255,255,0.08);
+      border:2px solid rgba(255,255,255,0.1);
+      box-shadow:0 0 40px rgba(255,255,255,0.15);
       margin-bottom:25px;
     }
 
@@ -56,7 +63,12 @@
       font-size:3.5rem;
       font-weight:700;
       margin-bottom:10px;
-      background:linear-gradient(to right,#ffffff,#bfdbfe);
+      background:
+      linear-gradient(
+        to right,
+        #ffffff,
+        #bfdbfe
+      );
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
     }
@@ -68,7 +80,8 @@
 
     .grid{
       display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      grid-template-columns:
+      repeat(auto-fit,minmax(250px,1fr));
       gap:25px;
     }
 
@@ -77,16 +90,21 @@
       overflow:hidden;
       border-radius:30px;
       padding:30px;
-      background:rgba(255,255,255,0.1);
+      background:rgba(255,255,255,0.08);
       backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.15);
+      border:1px solid rgba(255,255,255,0.1);
       transition:0.35s ease;
       box-shadow:0 10px 30px rgba(0,0,0,0.2);
     }
 
     .card:hover{
-      transform:translateY(-12px) scale(1.03);
-      box-shadow:0 0 35px rgba(255,255,255,0.2);
+      transform:
+      translateY(-10px)
+      scale(1.03);
+
+      box-shadow:
+      0 0 35px
+      rgba(255,255,255,0.15);
     }
 
     .card::before{
@@ -94,7 +112,8 @@
       position:absolute;
       width:180px;
       height:180px;
-      background:rgba(255,255,255,0.08);
+      background:
+      rgba(255,255,255,0.05);
       border-radius:50%;
       top:-70px;
       right:-70px;
@@ -120,9 +139,9 @@
     .payment-desc{
       color:#dbeafe;
       margin-bottom:25px;
+      line-height:1.6;
       position:relative;
       z-index:2;
-      line-height:1.6;
     }
 
     .btn{
@@ -130,7 +149,14 @@
       border:none;
       padding:15px;
       border-radius:18px;
-      background:linear-gradient(135deg,#ffffff,#dbeafe);
+
+      background:
+      linear-gradient(
+        135deg,
+        #ffffff,
+        #dbeafe
+      );
+
       color:#1e3a8a;
       font-weight:700;
       cursor:pointer;
@@ -152,6 +178,57 @@
       font-size:0.95rem;
     }
 
+    /* LOADING */
+
+    .loading{
+      position:fixed;
+      inset:0;
+      background:rgba(2,6,23,0.95);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:9999;
+      backdrop-filter:blur(10px);
+    }
+
+    .loading-box{
+      width:100%;
+      max-width:350px;
+      text-align:center;
+    }
+
+    .loading-text{
+      margin-bottom:20px;
+      font-size:1.1rem;
+      color:white;
+    }
+
+    .loading-bar{
+      width:100%;
+      height:10px;
+      background:rgba(255,255,255,0.1);
+      border-radius:30px;
+      overflow:hidden;
+    }
+
+    .loading-progress{
+      width:0%;
+      height:100%;
+      border-radius:30px;
+
+      background:
+      linear-gradient(
+        90deg,
+        #ffffff,
+        #60a5fa,
+        #2563eb
+      );
+
+      transition:2s linear;
+    }
+
+    /* POPUP */
+
     .popup{
       position:fixed;
       inset:0;
@@ -172,10 +249,10 @@
       text-align:center;
       border:1px solid rgba(255,255,255,0.1);
       position:relative;
-      animation:popupShow 0.3s ease;
+      animation:show 0.3s ease;
     }
 
-    @keyframes popupShow{
+    @keyframes show{
       from{
         transform:scale(0.8);
         opacity:0;
@@ -218,16 +295,55 @@
       border:none;
       padding:15px;
       border-radius:18px;
-      background:linear-gradient(135deg,#2563eb,#3b82f6);
+
+      background:
+      linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+      );
+
       color:white;
       font-weight:600;
       cursor:pointer;
-      margin-top:15px;
+      margin-top:20px;
       transition:0.3s;
     }
 
     .copy-btn:hover{
       transform:scale(1.03);
+    }
+
+    .qris-image{
+      width:100%;
+      border-radius:20px;
+      margin-top:20px;
+      border:
+      1px solid
+      rgba(255,255,255,0.1);
+    }
+
+    /* NOTIFICATION */
+
+    .toast{
+      position:fixed;
+      bottom:30px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#2563eb;
+      color:white;
+      padding:15px 25px;
+      border-radius:15px;
+      font-weight:500;
+      opacity:0;
+      pointer-events:none;
+      transition:0.3s;
+      z-index:99999;
+    }
+
+    .toast.show{
+      opacity:1;
+      bottom:50px;
     }
 
     @media(max-width:768px){
@@ -247,133 +363,226 @@
 </head>
 <body>
 
+  <!-- LOADING -->
+
+  <div class="loading" id="loading">
+
+    <div class="loading-box">
+
+      <div class="loading-text">
+        Loading Payment Details...
+      </div>
+
+      <div class="loading-bar">
+        <div
+          class="loading-progress"
+          id="loadingProgress"
+        ></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- TOAST -->
+
+  <div class="toast" id="toast">
+    Berhasil Disalin
+  </div>
+
   <div class="container">
+
+    <!-- HEADER -->
 
     <div class="header">
 
-      <img src="logo.png" class="logo">
+      <img
+        src="logo.png"
+        class="logo"
+      >
 
-      <h1 class="title">Payment Methods</h1>
+      <h1 class="title">
+        Payment
+      </h1>
 
       <p class="subtitle">
-        Secure Digital Payment Website
+        Modern Secure Payment Website
       </p>
 
     </div>
 
+    <!-- PAYMENT LIST -->
+
     <div class="grid">
 
+      <!-- QRIS -->
+
       <div class="card">
 
-        <img src="qris.png" class="payment-logo">
+        <img
+          src="qris.png"
+          class="payment-logo"
+        >
 
-        <div class="payment-name">QRIS</div>
-
-        <div class="payment-desc">
-          Pembayaran cepat menggunakan QRIS
+        <div class="payment-name">
+          QRIS
         </div>
 
-        <button class="btn"
-        onclick="openPopup(
-          'QRIS',
-          'Nama Anda',
-          'Scan QRIS Anda',
-          'qris.png'
-        )">
+        <div class="payment-desc">
+          Scan QRIS untuk pembayaran
+        </div>
+
+        <button
+          class="btn"
+          onclick="
+          openPopup(
+            'QRIS',
+            'Nama Anda',
+            '',
+            'qris.png',
+            true
+          )"
+        >
           View Details
         </button>
 
       </div>
 
+      <!-- DANA -->
+
       <div class="card">
 
-        <img src="dana.png" class="payment-logo">
+        <img
+          src="dana.png"
+          class="payment-logo"
+        >
 
-        <div class="payment-name">DANA</div>
-
-        <div class="payment-desc">
-          Pembayaran digital menggunakan DANA
+        <div class="payment-name">
+          DANA
         </div>
 
-        <button class="btn"
-        onclick="openPopup(
-          'DANA',
-          'Nama Anda',
-          '081234567890',
-          'dana.png'
-        )">
+        <div class="payment-desc">
+          Pembayaran digital DANA
+        </div>
+
+        <button
+          class="btn"
+          onclick="
+          openPopup(
+            'DANA',
+            'Nama Anda',
+            '081234567890',
+            'dana.png',
+            false
+          )"
+        >
           View Details
         </button>
 
       </div>
 
+      <!-- GOPAY -->
+
       <div class="card">
 
-        <img src="gopay.png" class="payment-logo">
+        <img
+          src="gopay.png"
+          class="payment-logo"
+        >
 
-        <div class="payment-name">GoPay</div>
-
-        <div class="payment-desc">
-          Pembayaran digital menggunakan GoPay
+        <div class="payment-name">
+          GoPay
         </div>
 
-        <button class="btn"
-        onclick="openPopup(
-          'GoPay',
-          'Nama Anda',
-          '081234567890',
-          'gopay.png'
-        )">
+        <div class="payment-desc">
+          Pembayaran digital GoPay
+        </div>
+
+        <button
+          class="btn"
+          onclick="
+          openPopup(
+            'GoPay',
+            'Nama Anda',
+            '081234567890',
+            'gopay.png',
+            false
+          )"
+        >
           View Details
         </button>
 
       </div>
 
+      <!-- SEABANK -->
+
       <div class="card">
 
-        <img src="seabank.png" class="payment-logo">
+        <img
+          src="seabank.png"
+          class="payment-logo"
+        >
 
-        <div class="payment-name">SeaBank</div>
-
-        <div class="payment-desc">
-          Transfer bank melalui SeaBank
+        <div class="payment-name">
+          SeaBank
         </div>
 
-        <button class="btn"
-        onclick="openPopup(
-          'SeaBank',
-          'Nama Anda',
-          '1234567890',
-          'seabank.png'
-        )">
+        <div class="payment-desc">
+          Transfer melalui SeaBank
+        </div>
+
+        <button
+          class="btn"
+          onclick="
+          openPopup(
+            'SeaBank',
+            'Nama Anda',
+            '1234567890',
+            'seabank.png',
+            false
+          )"
+        >
           View Details
         </button>
 
       </div>
 
+      <!-- BINANCE -->
+
       <div class="card">
 
-        <img src="binance.png" class="payment-logo">
+        <img
+          src="binance.png"
+          class="payment-logo"
+        >
 
-        <div class="payment-name">Binance</div>
-
-        <div class="payment-desc">
-          Pembayaran crypto menggunakan Binance
+        <div class="payment-name">
+          Binance
         </div>
 
-        <button class="btn"
-        onclick="openPopup(
-          'Binance',
-          'Nama Anda',
-          'your_binance_id',
-          'binance.png'
-        )">
+        <div class="payment-desc">
+          Pembayaran crypto Binance
+        </div>
+
+        <button
+          class="btn"
+          onclick="
+          openPopup(
+            'Binance',
+            'Nama Anda',
+            'your_binance_id',
+            'binance.png',
+            false
+          )"
+        >
           View Details
         </button>
 
       </div>
 
     </div>
+
+    <!-- FOOTER -->
 
     <div class="footer">
       © 2026 Modern Payment Website
@@ -381,23 +590,54 @@
 
   </div>
 
+  <!-- POPUP -->
+
   <div class="popup" id="popup">
 
     <div class="popup-content">
 
-      <span class="close" onclick="closePopup()">
+      <span
+        class="close"
+        onclick="closePopup()"
+      >
         &times;
       </span>
 
-      <img id="popupLogo" class="popup-logo">
+      <img
+        id="popupLogo"
+        class="popup-logo"
+      >
 
-      <h2 id="popupTitle" class="popup-title"></h2>
+      <h2
+        id="popupTitle"
+        class="popup-title"
+      ></h2>
 
-      <p id="popupName" class="popup-text"></p>
+      <p
+        id="popupName"
+        class="popup-text"
+      ></p>
 
-      <p id="popupNumber" class="popup-text"></p>
+      <p
+        id="popupNumber"
+        class="popup-text"
+      ></p>
 
-      <button class="copy-btn" id="copyButton">
+      <!-- QRIS IMAGE -->
+
+      <img
+        src="qrisPay.png"
+        id="qrisImage"
+        class="qris-image"
+        style="display:none;"
+      >
+
+      <!-- COPY BUTTON -->
+
+      <button
+        class="copy-btn"
+        id="copyButton"
+      >
         Copy Number
       </button>
 
@@ -407,34 +647,158 @@
 
   <script>
 
-    function openPopup(title,name,number,logo){
+    // OPEN POPUP
 
-      document.getElementById('popup').style.display='flex';
+    function openPopup(
+      title,
+      name,
+      number,
+      logo,
+      isQris
+    ){
 
-      document.getElementById('popupTitle').innerText=title;
+      // SHOW LOADING
 
-      document.getElementById('popupName').innerText='Nama: '+name;
+      document
+      .getElementById('loading')
+      .style.display='flex';
 
-      document.getElementById('popupNumber').innerText='Nomor: '+number;
+      const progress =
+      document.getElementById(
+        'loadingProgress'
+      );
 
-      document.getElementById('popupLogo').src=logo;
+      progress.style.width='0%';
 
-      document.getElementById('copyButton').onclick=function(){
+      setTimeout(()=>{
 
-        navigator.clipboard.writeText(number)
-        .then(()=>{
-          alert('Berhasil disalin: '+number)
-        })
+        progress.style.width='100%';
 
-      }
+      },100);
+
+      // WAIT 2 SECONDS
+
+      setTimeout(()=>{
+
+        // HIDE LOADING
+
+        document
+        .getElementById('loading')
+        .style.display='none';
+
+        // SHOW POPUP
+
+        document
+        .getElementById('popup')
+        .style.display='flex';
+
+        // SET DATA
+
+        document
+        .getElementById('popupTitle')
+        .innerText=title;
+
+        document
+        .getElementById('popupName')
+        .innerText='Nama: '+name;
+
+        document
+        .getElementById('popupLogo')
+        .src=logo;
+
+        const qrisImage =
+        document.getElementById(
+          'qrisImage'
+        );
+
+        const copyButton =
+        document.getElementById(
+          'copyButton'
+        );
+
+        // QRIS
+
+        if(isQris){
+
+          document
+          .getElementById('popupNumber')
+          .style.display='none';
+
+          qrisImage.style.display='block';
+
+          copyButton.style.display='none';
+
+        }
+
+        // OTHER PAYMENT
+
+        else{
+
+          document
+          .getElementById('popupNumber')
+          .style.display='block';
+
+          document
+          .getElementById('popupNumber')
+          .innerText='Nomor: '+number;
+
+          qrisImage.style.display='none';
+
+          copyButton.style.display='block';
+
+          copyButton.onclick=function(){
+
+            navigator.clipboard
+            .writeText(number)
+
+            .then(()=>{
+
+              showToast();
+
+            });
+
+          }
+
+        }
+
+      },2000);
 
     }
 
+    // CLOSE POPUP
+
     function closePopup(){
-      document.getElementById('popup').style.display='none';
+
+      document
+      .getElementById('popup')
+      .style.display='none';
+
+    }
+
+    // TOAST
+
+    function showToast(){
+
+      const toast =
+      document.getElementById(
+        'toast'
+      );
+
+      toast.classList.add('show');
+
+      setTimeout(()=>{
+
+        toast.classList.remove(
+          'show'
+        );
+
+      },2000);
+
     }
 
   </script>
 
 </body>
 </html>
+```
+  
