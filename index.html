@@ -1,151 +1,248 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment System</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modern Payment Website</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
     }
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #020617, #0f172a, #172554);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 30px;
-      overflow-x: hidden;
+    body{
+      min-height:100vh;
+      background:
+      linear-gradient(135deg,#0f172a,#172554,#2563eb);
+      overflow-x:hidden;
+      color:white;
+      padding:30px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
     }
 
-    .container {
-      width: 100%;
-      max-width: 1200px;
+    .container{
+      width:100%;
+      max-width:1200px;
     }
 
-    .header {
-      text-align: center;
-      margin-bottom: 50px;
+    .header{
+      text-align:center;
+      margin-bottom:60px;
     }
 
-    .logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 4px solid rgba(255,255,255,0.1);
-      box-shadow: 0 0 40px rgba(59,130,246,0.5);
-      margin-bottom: 20px;
-      background: rgba(255,255,255,0.05);
-      padding: 10px;
+    .logo{
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      object-fit:cover;
+      padding:10px;
+      background:rgba(255,255,255,0.1);
+      border:2px solid rgba(255,255,255,0.2);
+      box-shadow:0 0 40px rgba(255,255,255,0.2);
+      margin-bottom:25px;
     }
 
-    .title {
-      font-size: 3rem;
-      font-weight: 700;
-      margin-bottom: 10px;
+    .title{
+      font-size:3.5rem;
+      font-weight:700;
+      margin-bottom:10px;
+      background:linear-gradient(to right,#ffffff,#bfdbfe);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    .subtitle {
-      color: #cbd5e1;
-      font-size: 1rem;
+    .subtitle{
+      color:#dbeafe;
+      font-size:1rem;
     }
 
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
     }
 
-    .card {
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 25px;
-      padding: 30px;
-      transition: 0.3s ease;
-      position: relative;
-      overflow: hidden;
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius:30px;
+      padding:30px;
+      background:rgba(255,255,255,0.1);
+      backdrop-filter:blur(20px);
+      border:1px solid rgba(255,255,255,0.15);
+      transition:0.35s ease;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
     }
 
-    .card:hover {
-      transform: translateY(-10px) scale(1.02);
-      box-shadow: 0 0 30px rgba(59,130,246,0.3);
+    .card:hover{
+      transform:translateY(-12px) scale(1.03);
+      box-shadow:0 0 35px rgba(255,255,255,0.2);
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      width: 150px;
-      height: 150px;
-      background: rgba(59,130,246,0.15);
-      border-radius: 50%;
-      top: -60px;
-      right: -60px;
+    .card::before{
+      content:'';
+      position:absolute;
+      width:180px;
+      height:180px;
+      background:rgba(255,255,255,0.08);
+      border-radius:50%;
+      top:-70px;
+      right:-70px;
     }
 
-    .icon {
-      font-size: 55px;
-      margin-bottom: 20px;
+    .payment-logo{
+      width:75px;
+      height:75px;
+      object-fit:contain;
+      margin-bottom:20px;
+      position:relative;
+      z-index:2;
     }
 
-    .payment-name {
-      font-size: 1.6rem;
-      font-weight: 600;
-      margin-bottom: 10px;
+    .payment-name{
+      font-size:1.7rem;
+      font-weight:600;
+      margin-bottom:12px;
+      position:relative;
+      z-index:2;
     }
 
-    .payment-number {
-      color: #cbd5e1;
-      margin-bottom: 20px;
-      word-break: break-all;
+    .payment-desc{
+      color:#dbeafe;
+      margin-bottom:25px;
+      position:relative;
+      z-index:2;
+      line-height:1.6;
     }
 
-    .copy-btn {
-      width: 100%;
-      border: none;
-      padding: 14px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 1rem;
+    .btn{
+      width:100%;
+      border:none;
+      padding:15px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#ffffff,#dbeafe);
+      color:#1e3a8a;
+      font-weight:700;
+      cursor:pointer;
+      transition:0.3s;
+      font-size:1rem;
+      position:relative;
+      z-index:2;
     }
 
-    .copy-btn:hover {
-      opacity: 0.9;
-      transform: scale(1.02);
+    .btn:hover{
+      transform:scale(1.03);
+      opacity:0.95;
     }
 
-    .footer {
-      text-align: center;
-      margin-top: 50px;
-      color: #94a3b8;
-      font-size: 0.9rem;
+    .footer{
+      text-align:center;
+      margin-top:50px;
+      color:#dbeafe;
+      font-size:0.95rem;
     }
 
-    @media(max-width: 768px) {
-      .title {
-        font-size: 2.2rem;
+    .popup{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.7);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      padding:20px;
+      z-index:999;
+    }
+
+    .popup-content{
+      width:100%;
+      max-width:420px;
+      background:#0f172a;
+      border-radius:30px;
+      padding:35px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.1);
+      position:relative;
+      animation:popupShow 0.3s ease;
+    }
+
+    @keyframes popupShow{
+      from{
+        transform:scale(0.8);
+        opacity:0;
+      }
+      to{
+        transform:scale(1);
+        opacity:1;
+      }
+    }
+
+    .close{
+      position:absolute;
+      top:15px;
+      right:20px;
+      font-size:2rem;
+      cursor:pointer;
+      color:white;
+    }
+
+    .popup-logo{
+      width:100px;
+      height:100px;
+      object-fit:contain;
+      margin-bottom:20px;
+    }
+
+    .popup-title{
+      font-size:2rem;
+      margin-bottom:15px;
+    }
+
+    .popup-text{
+      color:#dbeafe;
+      margin-bottom:12px;
+      word-break:break-all;
+    }
+
+    .copy-btn{
+      width:100%;
+      border:none;
+      padding:15px;
+      border-radius:18px;
+      background:linear-gradient(135deg,#2563eb,#3b82f6);
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+      margin-top:15px;
+      transition:0.3s;
+    }
+
+    .copy-btn:hover{
+      transform:scale(1.03);
+    }
+
+    @media(max-width:768px){
+
+      .title{
+        font-size:2.5rem;
       }
 
-      .logo {
-        width: 95px;
-        height: 95px;
+      .logo{
+        width:95px;
+        height:95px;
       }
+
     }
+
   </style>
 </head>
 <body>
@@ -153,83 +250,190 @@
   <div class="container">
 
     <div class="header">
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-        alt="Logo"
-        class="logo"
-      >
+
+      <img src="logo.png" class="logo">
 
       <h1 class="title">Payment Methods</h1>
-      <p class="subtitle">Silahkan pilih metode pembayaran yang tersedia</p>
+
+      <p class="subtitle">
+        Secure Digital Payment Website
+      </p>
+
     </div>
 
     <div class="grid">
 
       <div class="card">
-        <div class="icon">📱</div>
+
+        <img src="qris.png" class="payment-logo">
+
         <div class="payment-name">QRIS</div>
-        <div class="payment-number">Scan QRIS Anda di sini</div>
-        <button class="copy-btn" onclick="alert('Tambahkan gambar QRIS Anda')">
-          View QRIS
+
+        <div class="payment-desc">
+          Pembayaran cepat menggunakan QRIS
+        </div>
+
+        <button class="btn"
+        onclick="openPopup(
+          'QRIS',
+          'Nama Anda',
+          'Scan QRIS Anda',
+          'qris.png'
+        )">
+          View Details
         </button>
+
       </div>
 
       <div class="card">
-        <div class="icon">🏦</div>
-        <div class="payment-name">SeaBank</div>
-        <div class="payment-number" id="seabank">1234567890</div>
-        <button class="copy-btn" onclick="copyText('seabank')">
-          Copy Number
-        </button>
-      </div>
 
-      <div class="card">
-        <div class="icon">💙</div>
+        <img src="dana.png" class="payment-logo">
+
         <div class="payment-name">DANA</div>
-        <div class="payment-number" id="dana">081234567890</div>
-        <button class="copy-btn" onclick="copyText('dana')">
-          Copy Number
+
+        <div class="payment-desc">
+          Pembayaran digital menggunakan DANA
+        </div>
+
+        <button class="btn"
+        onclick="openPopup(
+          'DANA',
+          'Nama Anda',
+          '081234567890',
+          'dana.png'
+        )">
+          View Details
         </button>
+
       </div>
 
       <div class="card">
-        <div class="icon">🟢</div>
+
+        <img src="gopay.png" class="payment-logo">
+
         <div class="payment-name">GoPay</div>
-        <div class="payment-number" id="gopay">081234567890</div>
-        <button class="copy-btn" onclick="copyText('gopay')">
-          Copy Number
+
+        <div class="payment-desc">
+          Pembayaran digital menggunakan GoPay
+        </div>
+
+        <button class="btn"
+        onclick="openPopup(
+          'GoPay',
+          'Nama Anda',
+          '081234567890',
+          'gopay.png'
+        )">
+          View Details
         </button>
+
       </div>
 
       <div class="card">
-        <div class="icon">🟡</div>
-        <div class="payment-name">Binance</div>
-        <div class="payment-number" id="binance">your_binance_id</div>
-        <button class="copy-btn" onclick="copyText('binance')">
-          Copy ID
+
+        <img src="seabank.png" class="payment-logo">
+
+        <div class="payment-name">SeaBank</div>
+
+        <div class="payment-desc">
+          Transfer bank melalui SeaBank
+        </div>
+
+        <button class="btn"
+        onclick="openPopup(
+          'SeaBank',
+          'Nama Anda',
+          '1234567890',
+          'seabank.png'
+        )">
+          View Details
         </button>
+
+      </div>
+
+      <div class="card">
+
+        <img src="binance.png" class="payment-logo">
+
+        <div class="payment-name">Binance</div>
+
+        <div class="payment-desc">
+          Pembayaran crypto menggunakan Binance
+        </div>
+
+        <button class="btn"
+        onclick="openPopup(
+          'Binance',
+          'Nama Anda',
+          'your_binance_id',
+          'binance.png'
+        )">
+          View Details
+        </button>
+
       </div>
 
     </div>
 
     <div class="footer">
-      © 2026 Secure Payment Website
+      © 2026 Modern Payment Website
+    </div>
+
+  </div>
+
+  <div class="popup" id="popup">
+
+    <div class="popup-content">
+
+      <span class="close" onclick="closePopup()">
+        &times;
+      </span>
+
+      <img id="popupLogo" class="popup-logo">
+
+      <h2 id="popupTitle" class="popup-title"></h2>
+
+      <p id="popupName" class="popup-text"></p>
+
+      <p id="popupNumber" class="popup-text"></p>
+
+      <button class="copy-btn" id="copyButton">
+        Copy Number
+      </button>
+
     </div>
 
   </div>
 
   <script>
-    function copyText(id) {
-      const text = document.getElementById(id).innerText;
 
-      navigator.clipboard.writeText(text)
-        .then(() => {
-          alert('Berhasil disalin: ' + text);
+    function openPopup(title,name,number,logo){
+
+      document.getElementById('popup').style.display='flex';
+
+      document.getElementById('popupTitle').innerText=title;
+
+      document.getElementById('popupName').innerText='Nama: '+name;
+
+      document.getElementById('popupNumber').innerText='Nomor: '+number;
+
+      document.getElementById('popupLogo').src=logo;
+
+      document.getElementById('copyButton').onclick=function(){
+
+        navigator.clipboard.writeText(number)
+        .then(()=>{
+          alert('Berhasil disalin: '+number)
         })
-        .catch(() => {
-          alert('Gagal menyalin');
-        });
+
+      }
+
     }
+
+    function closePopup(){
+      document.getElementById('popup').style.display='none';
+    }
+
   </script>
 
 </body>
