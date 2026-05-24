@@ -25,22 +25,48 @@
       background:
       linear-gradient(
         135deg,
+        #020617,
         #0f172a,
-        #172554,
-        #2563eb
+        #1e3a8a
       );
       color:white;
-      display:flex;
-      justify-content:center;
-      align-items:center;
       padding:30px;
       overflow-x:hidden;
     }
 
+    body::before{
+      content:'';
+      position:fixed;
+      width:500px;
+      height:500px;
+      background:#2563eb30;
+      border-radius:50%;
+      filter:blur(120px);
+      top:-200px;
+      right:-100px;
+      z-index:-1;
+    }
+
+    body::after{
+      content:'';
+      position:fixed;
+      width:400px;
+      height:400px;
+      background:#60a5fa20;
+      border-radius:50%;
+      filter:blur(120px);
+      bottom:-150px;
+      left:-100px;
+      z-index:-1;
+    }
+
     .container{
       width:100%;
-      max-width:1200px;
+      max-width:1300px;
+      margin:auto;
     }
+
+    /* HEADER */
 
     .header{
       text-align:center;
@@ -52,94 +78,122 @@
       height:120px;
       border-radius:50%;
       object-fit:cover;
-      padding:10px;
+      padding:12px;
       background:rgba(255,255,255,0.08);
       border:2px solid rgba(255,255,255,0.1);
-      box-shadow:0 0 40px rgba(255,255,255,0.15);
+      box-shadow:0 0 50px rgba(255,255,255,0.15);
       margin-bottom:25px;
     }
 
     .title{
-      font-size:3.5rem;
+      font-size:4rem;
       font-weight:700;
-      margin-bottom:10px;
+
       background:
       linear-gradient(
         to right,
         #ffffff,
-        #bfdbfe
+        #93c5fd
       );
+
       -webkit-background-clip:text;
       -webkit-text-fill-color:transparent;
+
+      margin-bottom:10px;
     }
 
     .subtitle{
-      color:#dbeafe;
-      font-size:1rem;
+      color:#cbd5e1;
+      font-size:1.05rem;
     }
+
+    /* GRID */
 
     .grid{
       display:grid;
+
       grid-template-columns:
-      repeat(auto-fit,minmax(250px,1fr));
+      repeat(auto-fit,minmax(320px,1fr));
+
       gap:25px;
     }
+
+    /* CARD */
 
     .card{
       position:relative;
       overflow:hidden;
-      border-radius:30px;
+
+      aspect-ratio:16/9;
+
+      border-radius:35px;
+
       padding:30px;
-      background:rgba(255,255,255,0.08);
-      backdrop-filter:blur(20px);
-      border:1px solid rgba(255,255,255,0.1);
+
+      background:
+      rgba(255,255,255,0.07);
+
+      backdrop-filter:blur(18px);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
+
       transition:0.35s ease;
-      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+
+      box-shadow:
+      0 10px 40px rgba(0,0,0,0.3);
+
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
     }
 
     .card:hover{
       transform:
-      translateY(-10px)
-      scale(1.03);
+      translateY(-12px)
+      scale(1.02);
 
       box-shadow:
-      0 0 35px
-      rgba(255,255,255,0.15);
+      0 0 40px rgba(96,165,250,0.25);
     }
 
     .card::before{
       content:'';
       position:absolute;
-      width:180px;
-      height:180px;
+
+      width:220px;
+      height:220px;
+
       background:
-      rgba(255,255,255,0.05);
+      rgba(255,255,255,0.04);
+
       border-radius:50%;
-      top:-70px;
-      right:-70px;
+
+      top:-90px;
+      right:-90px;
     }
 
     .payment-logo{
       width:75px;
       height:75px;
       object-fit:contain;
-      margin-bottom:20px;
       position:relative;
       z-index:2;
     }
 
     .payment-name{
-      font-size:1.7rem;
-      font-weight:600;
-      margin-bottom:12px;
+      font-size:1.9rem;
+      font-weight:700;
+      margin-top:20px;
+      margin-bottom:10px;
       position:relative;
       z-index:2;
     }
 
     .payment-desc{
       color:#dbeafe;
-      margin-bottom:25px;
       line-height:1.6;
+      margin-bottom:25px;
       position:relative;
       z-index:2;
     }
@@ -158,23 +212,29 @@
       );
 
       color:#1e3a8a;
-      font-weight:700;
-      cursor:pointer;
-      transition:0.3s;
+
       font-size:1rem;
+      font-weight:700;
+
+      cursor:pointer;
+
+      transition:0.3s;
+
       position:relative;
       z-index:2;
     }
 
     .btn:hover{
-      transform:scale(1.03);
+      transform:scale(1.02);
       opacity:0.95;
     }
 
+    /* FOOTER */
+
     .footer{
       text-align:center;
-      margin-top:50px;
-      color:#dbeafe;
+      margin-top:60px;
+      color:#cbd5e1;
       font-size:0.95rem;
     }
 
@@ -183,12 +243,17 @@
     .loading{
       position:fixed;
       inset:0;
-      background:rgba(2,6,23,0.95);
+
+      background:
+      rgba(2,6,23,0.96);
+
       display:none;
       justify-content:center;
       align-items:center;
-      z-index:9999;
-      backdrop-filter:blur(10px);
+
+      z-index:99999;
+
+      backdrop-filter:blur(12px);
     }
 
     .loading-box{
@@ -198,22 +263,34 @@
     }
 
     .loading-text{
-      margin-bottom:20px;
       font-size:1.1rem;
+      margin-bottom:18px;
       color:white;
+      font-weight:500;
+    }
+
+    .loading-percent{
+      margin-top:12px;
+      color:#93c5fd;
+      font-size:0.95rem;
     }
 
     .loading-bar{
       width:100%;
-      height:10px;
-      background:rgba(255,255,255,0.1);
+      height:12px;
+
+      background:
+      rgba(255,255,255,0.08);
+
       border-radius:30px;
+
       overflow:hidden;
     }
 
     .loading-progress{
       width:0%;
       height:100%;
+
       border-radius:30px;
 
       background:
@@ -232,27 +309,41 @@
     .popup{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,0.7);
+
+      background:
+      rgba(0,0,0,0.7);
+
       display:none;
       justify-content:center;
       align-items:center;
+
       padding:20px;
-      z-index:999;
+
+      z-index:9999;
     }
 
     .popup-content{
       width:100%;
-      max-width:420px;
-      background:#0f172a;
-      border-radius:30px;
+      max-width:430px;
+
+      background:
+      #0f172a;
+
+      border-radius:35px;
+
       padding:35px;
+
       text-align:center;
-      border:1px solid rgba(255,255,255,0.1);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
+
       position:relative;
-      animation:show 0.3s ease;
+
+      animation:popupShow 0.3s ease;
     }
 
-    @keyframes show{
+    @keyframes popupShow{
       from{
         transform:scale(0.8);
         opacity:0;
@@ -267,33 +358,43 @@
       position:absolute;
       top:15px;
       right:20px;
+
       font-size:2rem;
       cursor:pointer;
       color:white;
     }
 
     .popup-logo{
-      width:100px;
-      height:100px;
+      width:95px;
+      height:95px;
       object-fit:contain;
       margin-bottom:20px;
     }
 
     .popup-title{
       font-size:2rem;
-      margin-bottom:15px;
+      margin-bottom:10px;
+      font-weight:700;
     }
 
-    .popup-text{
+    .popup-name{
       color:#dbeafe;
-      margin-bottom:12px;
+      font-size:1rem;
+      margin-bottom:10px;
+    }
+
+    .popup-number{
+      color:#93c5fd;
+      margin-bottom:20px;
       word-break:break-all;
     }
 
     .copy-btn{
       width:100%;
       border:none;
+
       padding:15px;
+
       border-radius:18px;
 
       background:
@@ -304,41 +405,58 @@
       );
 
       color:white;
+
       font-weight:600;
+
       cursor:pointer;
-      margin-top:20px;
+
       transition:0.3s;
     }
 
     .copy-btn:hover{
-      transform:scale(1.03);
+      transform:scale(1.02);
     }
 
     .qris-image{
       width:100%;
       border-radius:20px;
       margin-top:20px;
+
       border:
-      1px solid
-      rgba(255,255,255,0.1);
+      1px solid rgba(255,255,255,0.08);
     }
 
-    /* NOTIFICATION */
+    /* TOAST */
 
     .toast{
       position:fixed;
+
       bottom:30px;
       left:50%;
+
       transform:translateX(-50%);
-      background:#2563eb;
+
+      background:
+      linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+      );
+
       color:white;
-      padding:15px 25px;
+
+      padding:14px 24px;
+
       border-radius:15px;
+
       font-weight:500;
+
       opacity:0;
       pointer-events:none;
+
       transition:0.3s;
-      z-index:99999;
+
+      z-index:999999;
     }
 
     .toast.show{
@@ -348,13 +466,21 @@
 
     @media(max-width:768px){
 
+      body{
+        padding:20px;
+      }
+
       .title{
-        font-size:2.5rem;
+        font-size:2.8rem;
       }
 
       .logo{
         width:95px;
         height:95px;
+      }
+
+      .card{
+        aspect-ratio:auto;
       }
 
     }
@@ -370,7 +496,7 @@
     <div class="loading-box">
 
       <div class="loading-text">
-        Loading Payment Details...
+        Loading Payment...
       </div>
 
       <div class="loading-bar">
@@ -380,6 +506,13 @@
         ></div>
       </div>
 
+      <div
+        class="loading-percent"
+        id="loadingPercent"
+      >
+        0%
+      </div>
+
     </div>
 
   </div>
@@ -387,7 +520,7 @@
   <!-- TOAST -->
 
   <div class="toast" id="toast">
-    Berhasil Disalin
+    Successfully Copied
   </div>
 
   <div class="container">
@@ -406,12 +539,12 @@
       </h1>
 
       <p class="subtitle">
-        Modern Secure Payment Website
+        Payment List Qris, Seabank, Binance, Dana, GoPay
       </p>
 
     </div>
 
-    <!-- PAYMENT LIST -->
+    <!-- GRID -->
 
     <div class="grid">
 
@@ -419,17 +552,22 @@
 
       <div class="card">
 
-        <img
-          src="qris.png"
-          class="payment-logo"
-        >
+        <div>
 
-        <div class="payment-name">
-          QRIS
-        </div>
+          <img
+            src="qris.png"
+            class="payment-logo"
+          >
 
-        <div class="payment-desc">
-          Scan QRIS untuk pembayaran
+          <div class="payment-name">
+            QRIS
+          </div>
+
+          <div class="payment-desc">
+            Scan QRIS untuk pembayaran cepat
+            dan aman.
+          </div>
+
         </div>
 
         <button
@@ -437,7 +575,7 @@
           onclick="
           openPopup(
             'QRIS',
-            'Nama Anda',
+            'gwewahid TopUp',
             '',
             'qris.png',
             true
@@ -452,17 +590,21 @@
 
       <div class="card">
 
-        <img
-          src="dana.png"
-          class="payment-logo"
-        >
+        <div>
 
-        <div class="payment-name">
-          DANA
-        </div>
+          <img
+            src="dana.png"
+            class="payment-logo"
+          >
 
-        <div class="payment-desc">
-          Pembayaran digital DANA
+          <div class="payment-name">
+            DANA
+          </div>
+
+          <div class="payment-desc">
+            Pembayaran digital menggunakan DANA.
+          </div>
+
         </div>
 
         <button
@@ -470,8 +612,8 @@
           onclick="
           openPopup(
             'DANA',
-            'Nama Anda',
-            '081234567890',
+            'WAHID B••A',
+            '0821 9559 4060',
             'dana.png',
             false
           )"
@@ -485,17 +627,21 @@
 
       <div class="card">
 
-        <img
-          src="gopay.png"
-          class="payment-logo"
-        >
+        <div>
 
-        <div class="payment-name">
-          GoPay
-        </div>
+          <img
+            src="gopay.png"
+            class="payment-logo"
+          >
 
-        <div class="payment-desc">
-          Pembayaran digital GoPay
+          <div class="payment-name">
+            GoPay
+          </div>
+
+          <div class="payment-desc">
+            Pembayaran digital menggunakan GoPay.
+          </div>
+
         </div>
 
         <button
@@ -503,8 +649,8 @@
           onclick="
           openPopup(
             'GoPay',
-            'Nama Anda',
-            '081234567890',
+            'WAHID B••A',
+            '0821 9559 4060',
             'gopay.png',
             false
           )"
@@ -518,17 +664,21 @@
 
       <div class="card">
 
-        <img
-          src="seabank.png"
-          class="payment-logo"
-        >
+        <div>
 
-        <div class="payment-name">
-          SeaBank
-        </div>
+          <img
+            src="seabank.png"
+            class="payment-logo"
+          >
 
-        <div class="payment-desc">
-          Transfer melalui SeaBank
+          <div class="payment-name">
+            SeaBank
+          </div>
+
+          <div class="payment-desc">
+            Transfer cepat menggunakan SeaBank.
+          </div>
+
         </div>
 
         <button
@@ -536,8 +686,8 @@
           onclick="
           openPopup(
             'SeaBank',
-            'Nama Anda',
-            '1234567890',
+            'WAHID B••A',
+            '901009462358',
             'seabank.png',
             false
           )"
@@ -551,17 +701,21 @@
 
       <div class="card">
 
-        <img
-          src="binance.png"
-          class="payment-logo"
-        >
+        <div>
 
-        <div class="payment-name">
-          Binance
-        </div>
+          <img
+            src="binance.png"
+            class="payment-logo"
+          >
 
-        <div class="payment-desc">
-          Pembayaran crypto Binance
+          <div class="payment-name">
+            Binance
+          </div>
+
+          <div class="payment-desc">
+            Pembayaran crypto melalui Binance.
+          </div>
+
         </div>
 
         <button
@@ -569,8 +723,8 @@
           onclick="
           openPopup(
             'Binance',
-            'Nama Anda',
-            'your_binance_id',
+            'gwewahid',
+            '1176015360',
             'binance.png',
             false
           )"
@@ -613,17 +767,17 @@
         class="popup-title"
       ></h2>
 
-      <p
+      <div
         id="popupName"
-        class="popup-text"
-      ></p>
+        class="popup-name"
+      ></div>
 
-      <p
+      <div
         id="popupNumber"
-        class="popup-text"
-      ></p>
+        class="popup-number"
+      ></div>
 
-      <!-- QRIS IMAGE -->
+      <!-- QRIS -->
 
       <img
         src="qrisPay.png"
@@ -632,7 +786,7 @@
         style="display:none;"
       >
 
-      <!-- COPY BUTTON -->
+      <!-- BUTTON -->
 
       <button
         class="copy-btn"
@@ -647,8 +801,6 @@
 
   <script>
 
-    // OPEN POPUP
-
     function openPopup(
       title,
       name,
@@ -657,42 +809,50 @@
       isQris
     ){
 
-      // SHOW LOADING
-
-      document
-      .getElementById('loading')
-      .style.display='flex';
+      const loading =
+      document.getElementById('loading');
 
       const progress =
       document.getElementById(
         'loadingProgress'
       );
 
+      const percent =
+      document.getElementById(
+        'loadingPercent'
+      );
+
+      loading.style.display='flex';
+
       progress.style.width='0%';
+      percent.innerText='0%';
+
+      let value = 0;
+
+      const interval =
+      setInterval(()=>{
+
+        value++;
+
+        percent.innerText=value+'%';
+
+        progress.style.width=value+'%';
+
+        if(value >= 100){
+
+          clearInterval(interval);
+
+        }
+
+      },20);
 
       setTimeout(()=>{
 
-        progress.style.width='100%';
-
-      },100);
-
-      // WAIT 2 SECONDS
-
-      setTimeout(()=>{
-
-        // HIDE LOADING
-
-        document
-        .getElementById('loading')
-        .style.display='none';
-
-        // SHOW POPUP
+        loading.style.display='none';
 
         document
         .getElementById('popup')
         .style.display='flex';
-
-        // SET DATA
 
         document
         .getElementById('popupTitle')
@@ -700,7 +860,7 @@
 
         document
         .getElementById('popupName')
-        .innerText='Nama: '+name;
+        .innerText=name;
 
         document
         .getElementById('popupLogo')
@@ -716,13 +876,16 @@
           'copyButton'
         );
 
+        const popupNumber =
+        document.getElementById(
+          'popupNumber'
+        );
+
         // QRIS
 
         if(isQris){
 
-          document
-          .getElementById('popupNumber')
-          .style.display='none';
+          popupNumber.style.display='none';
 
           qrisImage.style.display='block';
 
@@ -734,13 +897,9 @@
 
         else{
 
-          document
-          .getElementById('popupNumber')
-          .style.display='block';
+          popupNumber.style.display='block';
 
-          document
-          .getElementById('popupNumber')
-          .innerText='Nomor: '+number;
+          popupNumber.innerText=number;
 
           qrisImage.style.display='none';
 
@@ -761,11 +920,9 @@
 
         }
 
-      },2000);
+      },2100);
 
     }
-
-    // CLOSE POPUP
 
     function closePopup(){
 
@@ -774,8 +931,6 @@
       .style.display='none';
 
     }
-
-    // TOAST
 
     function showToast(){
 
@@ -788,9 +943,7 @@
 
       setTimeout(()=>{
 
-        toast.classList.remove(
-          'show'
-        );
+        toast.classList.remove('show');
 
       },2000);
 
@@ -800,5 +953,3 @@
 
 </body>
 </html>
-```
-  
