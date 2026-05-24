@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payment System</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #020617, #0f172a, #172554);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .logo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid rgba(255,255,255,0.1);
+      box-shadow: 0 0 40px rgba(59,130,246,0.5);
+      margin-bottom: 20px;
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+    }
+
+    .title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: #cbd5e1;
+      font-size: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 25px;
+      padding: 30px;
+      transition: 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 0 30px rgba(59,130,246,0.3);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: rgba(59,130,246,0.15);
+      border-radius: 50%;
+      top: -60px;
+      right: -60px;
+    }
+
+    .icon {
+      font-size: 55px;
+      margin-bottom: 20px;
+    }
+
+    .payment-name {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .payment-number {
+      color: #cbd5e1;
+      margin-bottom: 20px;
+      word-break: break-all;
+    }
+
+    .copy-btn {
+      width: 100%;
+      border: none;
+      padding: 14px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 1rem;
+    }
+
+    .copy-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+    }
+
+    @media(max-width: 768px) {
+      .title {
+        font-size: 2.2rem;
+      }
+
+      .logo {
+        width: 95px;
+        height: 95px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <div class="header">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
+        alt="Logo"
+        class="logo"
+      >
+
+      <h1 class="title">Payment Methods</h1>
+      <p class="subtitle">Silahkan pilih metode pembayaran yang tersedia</p>
+    </div>
+
+    <div class="grid">
+
+      <div class="card">
+        <div class="icon">📱</div>
+        <div class="payment-name">QRIS</div>
+        <div class="payment-number">Scan QRIS Anda di sini</div>
+        <button class="copy-btn" onclick="alert('Tambahkan gambar QRIS Anda')">
+          View QRIS
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🏦</div>
+        <div class="payment-name">SeaBank</div>
+        <div class="payment-number" id="seabank">1234567890</div>
+        <button class="copy-btn" onclick="copyText('seabank')">
+          Copy Number
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="icon">💙</div>
+        <div class="payment-name">DANA</div>
+        <div class="payment-number" id="dana">081234567890</div>
+        <button class="copy-btn" onclick="copyText('dana')">
+          Copy Number
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🟢</div>
+        <div class="payment-name">GoPay</div>
+        <div class="payment-number" id="gopay">081234567890</div>
+        <button class="copy-btn" onclick="copyText('gopay')">
+          Copy Number
+        </button>
+      </div>
+
+      <div class="card">
+        <div class="icon">🟡</div>
+        <div class="payment-name">Binance</div>
+        <div class="payment-number" id="binance">your_binance_id</div>
+        <button class="copy-btn" onclick="copyText('binance')">
+          Copy ID
+        </button>
+      </div>
+
+    </div>
+
+    <div class="footer">
+      © 2026 Secure Payment Website
+    </div>
+
+  </div>
+
+  <script>
+    function copyText(id) {
+      const text = document.getElementById(id).innerText;
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert('Berhasil disalin: ' + text);
+        })
+        .catch(() => {
+          alert('Gagal menyalin');
+        });
+    }
+  </script>
+
+</body>
+</html>
