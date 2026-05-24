@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
 
@@ -27,22 +27,23 @@
         135deg,
         #020617,
         #0f172a,
-        #1e3a8a
+        #1d4ed8
       );
+
+      padding:25px;
       color:white;
-      padding:30px;
       overflow-x:hidden;
     }
 
     body::before{
       content:'';
       position:fixed;
-      width:500px;
-      height:500px;
+      width:450px;
+      height:450px;
       background:#2563eb30;
       border-radius:50%;
       filter:blur(120px);
-      top:-200px;
+      top:-150px;
       right:-100px;
       z-index:-1;
     }
@@ -50,19 +51,18 @@
     body::after{
       content:'';
       position:fixed;
-      width:400px;
-      height:400px;
+      width:350px;
+      height:350px;
       background:#60a5fa20;
       border-radius:50%;
       filter:blur(120px);
-      bottom:-150px;
-      left:-100px;
+      bottom:-120px;
+      left:-80px;
       z-index:-1;
     }
 
     .container{
-      width:100%;
-      max-width:1300px;
+      max-width:1400px;
       margin:auto;
     }
 
@@ -70,7 +70,7 @@
 
     .header{
       text-align:center;
-      margin-bottom:60px;
+      margin-bottom:55px;
     }
 
     .logo{
@@ -78,16 +78,24 @@
       height:120px;
       border-radius:50%;
       object-fit:cover;
+
       padding:12px;
-      background:rgba(255,255,255,0.08);
-      border:2px solid rgba(255,255,255,0.1);
-      box-shadow:0 0 50px rgba(255,255,255,0.15);
+
+      background:
+      rgba(255,255,255,0.08);
+
+      border:
+      2px solid rgba(255,255,255,0.1);
+
+      box-shadow:
+      0 0 45px rgba(255,255,255,0.15);
+
       margin-bottom:25px;
     }
 
     .title{
       font-size:4rem;
-      font-weight:700;
+      font-weight:800;
 
       background:
       linear-gradient(
@@ -113,7 +121,7 @@
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(320px,1fr));
+      repeat(auto-fit,minmax(420px,1fr));
 
       gap:25px;
     }
@@ -122,13 +130,14 @@
 
     .card{
       position:relative;
-      overflow:hidden;
 
-      aspect-ratio:16/9;
+      height:240px;
 
       border-radius:35px;
 
-      padding:30px;
+      overflow:hidden;
+
+      padding:28px;
 
       background:
       rgba(255,255,255,0.07);
@@ -138,10 +147,10 @@
       border:
       1px solid rgba(255,255,255,0.08);
 
-      transition:0.35s ease;
-
       box-shadow:
       0 10px 40px rgba(0,0,0,0.3);
+
+      transition:0.35s ease;
 
       display:flex;
       flex-direction:column;
@@ -150,11 +159,11 @@
 
     .card:hover{
       transform:
-      translateY(-12px)
+      translateY(-10px)
       scale(1.02);
 
       box-shadow:
-      0 0 40px rgba(96,165,250,0.25);
+      0 0 40px rgba(96,165,250,0.2);
     }
 
     .card::before{
@@ -169,39 +178,42 @@
 
       border-radius:50%;
 
-      top:-90px;
-      right:-90px;
+      top:-100px;
+      right:-100px;
+    }
+
+    .top{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      position:relative;
+      z-index:2;
     }
 
     .payment-logo{
-      width:75px;
-      height:75px;
+      width:70px;
+      height:70px;
       object-fit:contain;
-      position:relative;
-      z-index:2;
     }
 
     .payment-name{
       font-size:1.9rem;
       font-weight:700;
-      margin-top:20px;
-      margin-bottom:10px;
-      position:relative;
-      z-index:2;
     }
 
     .payment-desc{
-      color:#dbeafe;
-      line-height:1.6;
-      margin-bottom:25px;
-      position:relative;
-      z-index:2;
+      margin-top:5px;
+      color:#cbd5e1;
+      font-size:0.95rem;
     }
 
     .btn{
       width:100%;
+
       border:none;
-      padding:15px;
+
+      padding:16px;
+
       border-radius:18px;
 
       background:
@@ -213,8 +225,8 @@
 
       color:#1e3a8a;
 
-      font-size:1rem;
       font-weight:700;
+      font-size:1rem;
 
       cursor:pointer;
 
@@ -226,16 +238,6 @@
 
     .btn:hover{
       transform:scale(1.02);
-      opacity:0.95;
-    }
-
-    /* FOOTER */
-
-    .footer{
-      text-align:center;
-      margin-top:60px;
-      color:#cbd5e1;
-      font-size:0.95rem;
     }
 
     /* LOADING */
@@ -253,36 +255,29 @@
 
       z-index:99999;
 
-      backdrop-filter:blur(12px);
+      backdrop-filter:blur(10px);
     }
 
     .loading-box{
       width:100%;
-      max-width:350px;
+      max-width:320px;
       text-align:center;
     }
 
-    .loading-text{
+    .loading-title{
       font-size:1.1rem;
       margin-bottom:18px;
       color:white;
-      font-weight:500;
-    }
-
-    .loading-percent{
-      margin-top:12px;
-      color:#93c5fd;
-      font-size:0.95rem;
     }
 
     .loading-bar{
       width:100%;
-      height:12px;
+      height:10px;
 
       background:
       rgba(255,255,255,0.08);
 
-      border-radius:30px;
+      border-radius:50px;
 
       overflow:hidden;
     }
@@ -291,7 +286,7 @@
       width:0%;
       height:100%;
 
-      border-radius:30px;
+      border-radius:50px;
 
       background:
       linear-gradient(
@@ -300,8 +295,12 @@
         #60a5fa,
         #2563eb
       );
+    }
 
-      transition:2s linear;
+    .loading-percent{
+      margin-top:10px;
+      color:#93c5fd;
+      font-size:0.95rem;
     }
 
     /* POPUP */
@@ -320,32 +319,36 @@
       padding:20px;
 
       z-index:9999;
+
+      backdrop-filter:blur(10px);
     }
 
     .popup-content{
       width:100%;
-      max-width:430px;
+      max-width:440px;
 
       background:
-      #0f172a;
+      linear-gradient(
+        180deg,
+        #0f172a,
+        #111827
+      );
 
       border-radius:35px;
 
       padding:35px;
-
-      text-align:center;
 
       border:
       1px solid rgba(255,255,255,0.08);
 
       position:relative;
 
-      animation:popupShow 0.3s ease;
+      animation:show 0.3s ease;
     }
 
-    @keyframes popupShow{
+    @keyframes show{
       from{
-        transform:scale(0.8);
+        transform:scale(0.85);
         opacity:0;
       }
       to{
@@ -364,28 +367,51 @@
       color:white;
     }
 
+    .popup-header{
+      text-align:center;
+      margin-bottom:25px;
+    }
+
     .popup-logo{
-      width:95px;
-      height:95px;
+      width:90px;
+      height:90px;
       object-fit:contain;
-      margin-bottom:20px;
+      margin-bottom:15px;
     }
 
     .popup-title{
       font-size:2rem;
-      margin-bottom:10px;
       font-weight:700;
     }
 
     .popup-name{
-      color:#dbeafe;
+      margin-top:5px;
+      color:#cbd5e1;
       font-size:1rem;
-      margin-bottom:10px;
     }
 
-    .popup-number{
+    .detail-box{
+      background:
+      rgba(255,255,255,0.05);
+
+      border:
+      1px solid rgba(255,255,255,0.05);
+
+      border-radius:20px;
+
+      padding:18px;
+
+      margin-bottom:18px;
+    }
+
+    .detail-label{
       color:#93c5fd;
-      margin-bottom:20px;
+      font-size:0.9rem;
+      margin-bottom:5px;
+    }
+
+    .detail-value{
+      font-size:1rem;
       word-break:break-all;
     }
 
@@ -406,6 +432,7 @@
 
       color:white;
 
+      font-size:1rem;
       font-weight:600;
 
       cursor:pointer;
@@ -420,7 +447,7 @@
     .qris-image{
       width:100%;
       border-radius:20px;
-      margin-top:20px;
+      margin-top:10px;
 
       border:
       1px solid rgba(255,255,255,0.08);
@@ -443,12 +470,11 @@
         #3b82f6
       );
 
-      color:white;
-
       padding:14px 24px;
 
       border-radius:15px;
 
+      font-size:0.95rem;
       font-weight:500;
 
       opacity:0;
@@ -464,23 +490,25 @@
       bottom:50px;
     }
 
-    @media(max-width:768px){
+    .footer{
+      text-align:center;
+      margin-top:60px;
+      color:#cbd5e1;
+      font-size:0.95rem;
+    }
 
-      body{
-        padding:20px;
-      }
+    @media(max-width:768px){
 
       .title{
         font-size:2.8rem;
       }
 
-      .logo{
-        width:95px;
-        height:95px;
+      .grid{
+        grid-template-columns:1fr;
       }
 
       .card{
-        aspect-ratio:auto;
+        height:220px;
       }
 
     }
@@ -495,7 +523,7 @@
 
     <div class="loading-box">
 
-      <div class="loading-text">
+      <div class="loading-title">
         Loading Payment...
       </div>
 
@@ -552,20 +580,23 @@
 
       <div class="card">
 
-        <div>
+        <div class="top">
 
           <img
             src="qris.png"
             class="payment-logo"
           >
 
-          <div class="payment-name">
-            QRIS
-          </div>
+          <div>
 
-          <div class="payment-desc">
-            Scan QRIS untuk pembayaran cepat
-            dan aman.
+            <div class="payment-name">
+              QRIS
+            </div>
+
+            <div class="payment-desc">
+              Scan QRIS untuk pembayaran
+            </div>
+
           </div>
 
         </div>
@@ -590,19 +621,23 @@
 
       <div class="card">
 
-        <div>
+        <div class="top">
 
           <img
             src="dana.png"
             class="payment-logo"
           >
 
-          <div class="payment-name">
-            DANA
-          </div>
+          <div>
 
-          <div class="payment-desc">
-            Pembayaran digital menggunakan DANA.
+            <div class="payment-name">
+              DANA
+            </div>
+
+            <div class="payment-desc">
+              Pembayaran digital DANA
+            </div>
+
           </div>
 
         </div>
@@ -627,19 +662,23 @@
 
       <div class="card">
 
-        <div>
+        <div class="top">
 
           <img
             src="gopay.png"
             class="payment-logo"
           >
 
-          <div class="payment-name">
-            GoPay
-          </div>
+          <div>
 
-          <div class="payment-desc">
-            Pembayaran digital menggunakan GoPay.
+            <div class="payment-name">
+              GoPay
+            </div>
+
+            <div class="payment-desc">
+              Pembayaran digital GoPay
+            </div>
+
           </div>
 
         </div>
@@ -664,19 +703,23 @@
 
       <div class="card">
 
-        <div>
+        <div class="top">
 
           <img
             src="seabank.png"
             class="payment-logo"
           >
 
-          <div class="payment-name">
-            SeaBank
-          </div>
+          <div>
 
-          <div class="payment-desc">
-            Transfer cepat menggunakan SeaBank.
+            <div class="payment-name">
+              SeaBank
+            </div>
+
+            <div class="payment-desc">
+              Transfer melalui SeaBank
+            </div>
+
           </div>
 
         </div>
@@ -701,19 +744,23 @@
 
       <div class="card">
 
-        <div>
+        <div class="top">
 
           <img
             src="binance.png"
             class="payment-logo"
           >
 
-          <div class="payment-name">
-            Binance
-          </div>
+          <div>
 
-          <div class="payment-desc">
-            Pembayaran crypto melalui Binance.
+            <div class="payment-name">
+              Binance
+            </div>
+
+            <div class="payment-desc">
+              Pembayaran crypto Binance
+            </div>
+
           </div>
 
         </div>
@@ -757,25 +804,53 @@
         &times;
       </span>
 
-      <img
-        id="popupLogo"
-        class="popup-logo"
+      <div class="popup-header">
+
+        <img
+          id="popupLogo"
+          class="popup-logo"
+        >
+
+        <div
+          id="popupTitle"
+          class="popup-title"
+        ></div>
+
+        <div
+          id="popupName"
+          class="popup-name"
+        ></div>
+
+      </div>
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Date & Time
+        </div>
+
+        <div
+          class="detail-value"
+          id="popupTime"
+        ></div>
+
+      </div>
+
+      <div
+        class="detail-box"
+        id="numberBox"
       >
 
-      <h2
-        id="popupTitle"
-        class="popup-title"
-      ></h2>
+        <div class="detail-label">
+          Payment Number
+        </div>
 
-      <div
-        id="popupName"
-        class="popup-name"
-      ></div>
+        <div
+          class="detail-value"
+          id="popupNumber"
+        ></div>
 
-      <div
-        id="popupNumber"
-        class="popup-number"
-      ></div>
+      </div>
 
       <!-- QRIS -->
 
@@ -786,7 +861,7 @@
         style="display:none;"
       >
 
-      <!-- BUTTON -->
+      <!-- COPY -->
 
       <button
         class="copy-btn"
@@ -824,19 +899,21 @@
 
       loading.style.display='flex';
 
+      let value = 0;
+
       progress.style.width='0%';
       percent.innerText='0%';
-
-      let value = 0;
 
       const interval =
       setInterval(()=>{
 
-        value++;
+        value += 5;
 
-        percent.innerText=value+'%';
+        progress.style.width=
+        value+'%';
 
-        progress.style.width=value+'%';
+        percent.innerText=
+        value+'%';
 
         if(value >= 100){
 
@@ -844,7 +921,7 @@
 
         }
 
-      },20);
+      },50);
 
       setTimeout(()=>{
 
@@ -866,6 +943,36 @@
         .getElementById('popupLogo')
         .src=logo;
 
+        // REALTIME CLOCK
+
+        updateTime();
+
+        setInterval(updateTime,1000);
+
+        function updateTime(){
+
+          const now = new Date();
+
+          const options = {
+            weekday:'long',
+            year:'numeric',
+            month:'long',
+            day:'numeric',
+            hour:'2-digit',
+            minute:'2-digit',
+            second:'2-digit'
+          };
+
+          document
+          .getElementById('popupTime')
+          .innerText =
+          now.toLocaleDateString(
+            'id-ID',
+            options
+          );
+
+        }
+
         const qrisImage =
         document.getElementById(
           'qrisImage'
@@ -881,11 +988,16 @@
           'popupNumber'
         );
 
+        const numberBox =
+        document.getElementById(
+          'numberBox'
+        );
+
         // QRIS
 
         if(isQris){
 
-          popupNumber.style.display='none';
+          numberBox.style.display='none';
 
           qrisImage.style.display='block';
 
@@ -897,13 +1009,13 @@
 
         else{
 
-          popupNumber.style.display='block';
-
-          popupNumber.innerText=number;
+          numberBox.style.display='block';
 
           qrisImage.style.display='none';
 
           copyButton.style.display='block';
+
+          popupNumber.innerText=number;
 
           copyButton.onclick=function(){
 
@@ -920,7 +1032,7 @@
 
         }
 
-      },2100);
+      },1000);
 
     }
 
