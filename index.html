@@ -1,8 +1,7 @@
-<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>Modern Payment</title>
 
@@ -23,41 +22,43 @@
     body{
       min-height:100vh;
       background:
+      radial-gradient(circle at top left,#2563eb22,transparent 30%),
+      radial-gradient(circle at bottom right,#06b6d422,transparent 30%),
       linear-gradient(
-        135deg,
+        145deg,
         #020617,
         #0f172a,
-        #1d4ed8
+        #111827
       );
 
-      padding:25px;
       color:white;
       overflow-x:hidden;
+      padding:25px;
     }
 
     body::before{
       content:'';
       position:fixed;
-      width:450px;
-      height:450px;
-      background:#2563eb30;
+      width:500px;
+      height:500px;
+      background:#2563eb25;
       border-radius:50%;
-      filter:blur(120px);
-      top:-150px;
-      right:-100px;
+      filter:blur(140px);
+      top:-220px;
+      left:-150px;
       z-index:-1;
     }
 
     body::after{
       content:'';
       position:fixed;
-      width:350px;
-      height:350px;
-      background:#60a5fa20;
+      width:450px;
+      height:450px;
+      background:#06b6d420;
       border-radius:50%;
-      filter:blur(120px);
-      bottom:-120px;
-      left:-80px;
+      filter:blur(140px);
+      bottom:-200px;
+      right:-120px;
       z-index:-1;
     }
 
@@ -70,25 +71,25 @@
 
     .header{
       text-align:center;
-      margin-bottom:55px;
+      margin-bottom:60px;
     }
 
     .logo{
       width:120px;
       height:120px;
-      border-radius:50%;
+      border-radius:35px;
       object-fit:cover;
 
-      padding:12px;
+      padding:10px;
 
       background:
       rgba(255,255,255,0.08);
 
       border:
-      2px solid rgba(255,255,255,0.1);
+      1px solid rgba(255,255,255,0.08);
 
       box-shadow:
-      0 0 45px rgba(255,255,255,0.15);
+      0 10px 40px rgba(37,99,235,0.25);
 
       margin-bottom:25px;
     }
@@ -101,7 +102,8 @@
       linear-gradient(
         to right,
         #ffffff,
-        #93c5fd
+        #60a5fa,
+        #22d3ee
       );
 
       -webkit-background-clip:text;
@@ -112,7 +114,7 @@
 
     .subtitle{
       color:#cbd5e1;
-      font-size:1.05rem;
+      font-size:1rem;
     }
 
     /* GRID */
@@ -121,9 +123,9 @@
       display:grid;
 
       grid-template-columns:
-      repeat(auto-fit,minmax(420px,1fr));
+      repeat(auto-fit,minmax(400px,1fr));
 
-      gap:25px;
+      gap:28px;
     }
 
     /* CARD */
@@ -131,7 +133,7 @@
     .card{
       position:relative;
 
-      height:240px;
+      height:250px;
 
       border-radius:35px;
 
@@ -140,15 +142,19 @@
       padding:28px;
 
       background:
-      rgba(255,255,255,0.07);
-
-      backdrop-filter:blur(18px);
+      linear-gradient(
+        160deg,
+        rgba(255,255,255,0.10),
+        rgba(255,255,255,0.04)
+      );
 
       border:
       1px solid rgba(255,255,255,0.08);
 
+      backdrop-filter:blur(18px);
+
       box-shadow:
-      0 10px 40px rgba(0,0,0,0.3);
+      0 10px 40px rgba(0,0,0,0.35);
 
       transition:0.35s ease;
 
@@ -159,11 +165,13 @@
 
     .card:hover{
       transform:
-      translateY(-10px)
-      scale(1.02);
+      translateY(-10px);
+
+      border:
+      1px solid rgba(96,165,250,0.4);
 
       box-shadow:
-      0 0 40px rgba(96,165,250,0.2);
+      0 0 40px rgba(59,130,246,0.20);
     }
 
     .card::before{
@@ -173,31 +181,44 @@
       width:220px;
       height:220px;
 
-      background:
-      rgba(255,255,255,0.04);
-
       border-radius:50%;
 
+      background:
+      linear-gradient(
+        135deg,
+        rgba(59,130,246,0.15),
+        transparent
+      );
+
       top:-100px;
-      right:-100px;
+      right:-80px;
     }
 
     .top{
       display:flex;
       align-items:center;
       gap:18px;
-      position:relative;
       z-index:2;
     }
 
     .payment-logo{
-      width:70px;
-      height:70px;
+      width:75px;
+      height:75px;
       object-fit:contain;
+
+      padding:10px;
+
+      border-radius:20px;
+
+      background:
+      rgba(255,255,255,0.06);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
     }
 
     .payment-name{
-      font-size:1.9rem;
+      font-size:2rem;
       font-weight:700;
     }
 
@@ -209,7 +230,6 @@
 
     .btn{
       width:100%;
-
       border:none;
 
       padding:16px;
@@ -219,11 +239,11 @@
       background:
       linear-gradient(
         135deg,
-        #ffffff,
-        #dbeafe
+        #2563eb,
+        #06b6d4
       );
 
-      color:#1e3a8a;
+      color:white;
 
       font-weight:700;
       font-size:1rem;
@@ -232,7 +252,9 @@
 
       transition:0.3s;
 
-      position:relative;
+      box-shadow:
+      0 10px 30px rgba(37,99,235,0.25);
+
       z-index:2;
     }
 
@@ -255,7 +277,7 @@
 
       z-index:99999;
 
-      backdrop-filter:blur(10px);
+      backdrop-filter:blur(12px);
     }
 
     .loading-box{
@@ -291,8 +313,8 @@
       background:
       linear-gradient(
         90deg,
-        #ffffff,
-        #60a5fa,
+        #06b6d4,
+        #3b82f6,
         #2563eb
       );
     }
@@ -310,7 +332,7 @@
       inset:0;
 
       background:
-      rgba(0,0,0,0.7);
+      rgba(0,0,0,0.75);
 
       display:none;
       justify-content:center;
@@ -325,13 +347,13 @@
 
     .popup-content{
       width:100%;
-      max-width:440px;
+      max-width:460px;
 
       background:
       linear-gradient(
         180deg,
-        #0f172a,
-        #111827
+        #111827,
+        #0f172a
       );
 
       border-radius:35px;
@@ -343,16 +365,36 @@
 
       position:relative;
 
+      overflow:hidden;
+
       animation:show 0.3s ease;
+    }
+
+    .popup-content::before{
+      content:'';
+      position:absolute;
+
+      width:250px;
+      height:250px;
+
+      background:
+      rgba(59,130,246,0.15);
+
+      border-radius:50%;
+
+      top:-120px;
+      right:-80px;
+
+      filter:blur(10px);
     }
 
     @keyframes show{
       from{
-        transform:scale(0.85);
+        transform:translateY(20px) scale(0.9);
         opacity:0;
       }
       to{
-        transform:scale(1);
+        transform:translateY(0) scale(1);
         opacity:1;
       }
     }
@@ -365,18 +407,33 @@
       font-size:2rem;
       cursor:pointer;
       color:white;
+      z-index:5;
     }
 
     .popup-header{
       text-align:center;
       margin-bottom:25px;
+      position:relative;
+      z-index:2;
     }
 
     .popup-logo{
-      width:90px;
-      height:90px;
+      width:95px;
+      height:95px;
+
       object-fit:contain;
-      margin-bottom:15px;
+
+      padding:14px;
+
+      border-radius:25px;
+
+      background:
+      rgba(255,255,255,0.06);
+
+      border:
+      1px solid rgba(255,255,255,0.08);
+
+      margin-bottom:18px;
     }
 
     .popup-title{
@@ -395,17 +452,20 @@
       rgba(255,255,255,0.05);
 
       border:
-      1px solid rgba(255,255,255,0.05);
+      1px solid rgba(255,255,255,0.06);
 
-      border-radius:20px;
+      border-radius:22px;
 
       padding:18px;
 
       margin-bottom:18px;
+
+      position:relative;
+      z-index:2;
     }
 
     .detail-label{
-      color:#93c5fd;
+      color:#60a5fa;
       font-size:0.9rem;
       margin-bottom:5px;
     }
@@ -413,6 +473,7 @@
     .detail-value{
       font-size:1rem;
       word-break:break-all;
+      font-weight:500;
     }
 
     .copy-btn{
@@ -427,7 +488,7 @@
       linear-gradient(
         135deg,
         #2563eb,
-        #3b82f6
+        #06b6d4
       );
 
       color:white;
@@ -438,6 +499,11 @@
       cursor:pointer;
 
       transition:0.3s;
+
+      margin-top:10px;
+
+      position:relative;
+      z-index:2;
     }
 
     .copy-btn:hover{
@@ -446,11 +512,48 @@
 
     .qris-image{
       width:100%;
-      border-radius:20px;
+      border-radius:22px;
       margin-top:10px;
 
       border:
       1px solid rgba(255,255,255,0.08);
+    }
+
+    /* TIME */
+
+    .time-box{
+      margin-top:20px;
+
+      padding:18px;
+
+      border-radius:22px;
+
+      background:
+      linear-gradient(
+        135deg,
+        rgba(37,99,235,0.18),
+        rgba(6,182,212,0.10)
+      );
+
+      border:
+      1px solid rgba(96,165,250,0.18);
+
+      text-align:center;
+
+      position:relative;
+      z-index:2;
+    }
+
+    .time-title{
+      color:#93c5fd;
+      font-size:0.9rem;
+      margin-bottom:6px;
+    }
+
+    .time-value{
+      font-size:1rem;
+      font-weight:600;
+      color:white;
     }
 
     /* TOAST */
@@ -467,7 +570,7 @@
       linear-gradient(
         135deg,
         #2563eb,
-        #3b82f6
+        #06b6d4
       );
 
       padding:14px 24px;
@@ -508,7 +611,7 @@
       }
 
       .card{
-        height:220px;
+        height:230px;
       }
 
     }
@@ -567,7 +670,7 @@
       </h1>
 
       <p class="subtitle">
-        Payment List Qris, Seabank, Binance, Dana, GoPay
+        Payment List Qris, SeaBank, Binance, Dana, GoPay
       </p>
 
     </div>
@@ -648,7 +751,7 @@
           openPopup(
             'DANA',
             'WAHID B••A',
-            '0821 9559 4060',
+            '082195594060',
             'dana.png',
             false
           )"
@@ -689,7 +792,7 @@
           openPopup(
             'GoPay',
             'WAHID B••A',
-            '0821 9559 4060',
+            '082195594060',
             'gopay.png',
             false
           )"
@@ -823,19 +926,6 @@
 
       </div>
 
-      <div class="detail-box">
-
-        <div class="detail-label">
-          Date & Time
-        </div>
-
-        <div
-          class="detail-value"
-          id="popupTime"
-        ></div>
-
-      </div>
-
       <div
         class="detail-box"
         id="numberBox"
@@ -870,11 +960,28 @@
         Copy Number
       </button>
 
+      <!-- TIME -->
+
+      <div class="time-box">
+
+        <div class="time-title">
+          Real Time Date & Time
+        </div>
+
+        <div
+          class="time-value"
+          id="popupTime"
+        ></div>
+
+      </div>
+
     </div>
 
   </div>
 
   <script>
+
+    let realtimeClock;
 
     function openPopup(
       title,
@@ -907,7 +1014,7 @@
       const interval =
       setInterval(()=>{
 
-        value += 5;
+        value += 10;
 
         progress.style.width=
         value+'%';
@@ -921,7 +1028,7 @@
 
         }
 
-      },50);
+      },100);
 
       setTimeout(()=>{
 
@@ -943,36 +1050,6 @@
         .getElementById('popupLogo')
         .src=logo;
 
-        // REALTIME CLOCK
-
-        updateTime();
-
-        setInterval(updateTime,1000);
-
-        function updateTime(){
-
-          const now = new Date();
-
-          const options = {
-            weekday:'long',
-            year:'numeric',
-            month:'long',
-            day:'numeric',
-            hour:'2-digit',
-            minute:'2-digit',
-            second:'2-digit'
-          };
-
-          document
-          .getElementById('popupTime')
-          .innerText =
-          now.toLocaleDateString(
-            'id-ID',
-            options
-          );
-
-        }
-
         const qrisImage =
         document.getElementById(
           'qrisImage'
@@ -993,8 +1070,6 @@
           'numberBox'
         );
 
-        // QRIS
-
         if(isQris){
 
           numberBox.style.display='none';
@@ -1004,8 +1079,6 @@
           copyButton.style.display='none';
 
         }
-
-        // OTHER PAYMENT
 
         else{
 
@@ -1032,7 +1105,40 @@
 
         }
 
+        updateTime();
+
+        clearInterval(realtimeClock);
+
+        realtimeClock =
+        setInterval(updateTime,1000);
+
       },1000);
+
+    }
+
+    function updateTime(){
+
+      const now = new Date();
+
+      const options = {
+
+        weekday:'long',
+        year:'numeric',
+        month:'long',
+        day:'numeric',
+        hour:'2-digit',
+        minute:'2-digit',
+        second:'2-digit'
+
+      };
+
+      document
+      .getElementById('popupTime')
+      .innerText =
+      now.toLocaleDateString(
+        'id-ID',
+        options
+      );
 
     }
 
@@ -1041,6 +1147,8 @@
       document
       .getElementById('popup')
       .style.display='none';
+
+      clearInterval(realtimeClock);
 
     }
 
