@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save & Payment - gwewahid</title>
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
@@ -56,7 +57,6 @@
             letter-spacing: 1px;
             color: transparent;
             -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.7);
-            /* Efek bayangan ganda untuk mendekati font sketsa gambar asli */
             text-shadow: 2px 2px 0px rgba(255,255,255,0.1), -1px -1px 0px rgba(0,0,0,0.2);
             margin-bottom: 2px;
         }
@@ -96,8 +96,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-            color: #94a3b8;
+            color: #94a3b8; /* Warna ikon SVG */
         }
         .info-details p {
             font-size: 11px;
@@ -130,7 +129,6 @@
             letter-spacing: 1px;
             margin-bottom: 6px;
         }
-        /* Penataan Asimetris Kurs + Badge */
         .rate-row {
             display: inline-flex;
             align-items: center;
@@ -230,7 +228,6 @@
         }
         .chevron-icon {
             color: #475569;
-            font-size: 14px;
         }
 
         /* Footer */
@@ -248,9 +245,6 @@
             margin-bottom: 16px;
             color: #64748b;
             font-size: 12px;
-        }
-        .safety-note i {
-            color: #64748b;
         }
 
         /* Modal / Pop-up Layout */
@@ -280,7 +274,6 @@
             top: 18px; right: 18px;
             color: #64748b;
             cursor: pointer;
-            font-size: 20px;
             transition: color 0.2s;
         }
         .close-modal:hover { color: #fff; }
@@ -347,7 +340,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             display: none; flex-direction: column; gap: 12px; z-index: 1000;
         }
-        .config-panel h5 { font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; }
+        .config-panel h5 { font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; color: #fff; }
         .config-group { display: flex; flex-direction: column; gap: 4px; }
         .config-group label { font-size: 11px; color: #94a3b8; }
         .config-group input { 
@@ -364,15 +357,25 @@
 <body>
 
     <div class="container">
+        <!-- Header -->
         <div class="header">
             <h1>gwewahid</h1>
             <h2>Save & Payment</h2>
         </div>
 
+        <!-- Main Dashboard Card -->
         <div class="main-card">
             <div class="finance-section">
+                <!-- Saldo Reksadana -->
                 <div class="info-block">
-                    <div class="info-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <!-- Menggunakan Inline SVG Dompet (Wallet) agar 100% anti-gagal -->
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path>
+                            <path d="M4 6v12a2 2 0 0 0 2 2h14v-4"></path>
+                            <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
+                        </svg>
+                    </div>
                     <div class="info-details">
                         <p>Saldo Reksadana</p>
                         <h3 id="display-saldo">50.000 IDR</h3>
@@ -381,8 +384,15 @@
                 
                 <div class="divider"></div>
                 
+                <!-- Pengeluaran -->
                 <div class="info-block">
-                    <div class="info-icon"><i class="fa-solid fa-chart-line"></i></div>
+                    <!-- Menggunakan Inline SVG Grafik (Chart) agar 100% anti-gagal -->
+                    <div class="info-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                            <polyline points="17 6 23 6 23 12"></polyline>
+                        </svg>
+                    </div>
                     <div class="info-details">
                         <p>Pengeluaran</p>
                         <h3 id="display-pengeluaran">0 IDR</h3>
@@ -392,87 +402,112 @@
 
             <div class="divider"></div>
 
+            <!-- Kurs USD to IDR Real-time -->
             <div class="rate-section">
                 <p class="rate-title">USD TO IDR</p>
                 <div class="rate-row">
                     <h2 class="rate-value" id="usd-rate">1 USD = 16.295 IDR</h2>
-                    <span class="badge-green"><i class="fa-solid fa-arrow-up"></i> 0.45%</span>
+                    <span class="badge-green">
+                        <!-- SVG Panah Naik -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                        0.45%
+                    </span>
                 </div>
                 <p class="update-time" id="update-time">• Update: Memuat data...</p>
             </div>
 
+            <!-- Grafik Garis -->
             <div class="chart-wrapper">
                 <canvas id="lineChartCanvas"></canvas>
             </div>
         </div>
 
+        <!-- Bagian Opsi Payment -->
         <h3 class="payment-title">MY PAYMENT</h3>
         
         <div class="payment-container">
+            <!-- QRIS -->
             <div class="payment-card" onclick="triggerPayment('qris')">
                 <div class="logo-box"><img src="qris.png" alt="QRIS" onerror="this.src='https://via.placeholder.com/45?text=QRIS'"></div>
                 <div class="text-box">
                     <h4>QRIS</h4>
                     <p>Scan QR Code untuk donasi</p>
                 </div>
-                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                <!-- SVG Chevron -->
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
+            <!-- SeaBank -->
             <div class="payment-card" onclick="triggerPayment('seabank')">
                 <div class="logo-box"><img src="seabank.png" alt="SeaBank" onerror="this.src='https://via.placeholder.com/45?text=SB'"></div>
                 <div class="text-box">
                     <h4>SeaBank</h4>
                     <p>Transfer melalui SeaBank</p>
                 </div>
-                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
+            <!-- DANA -->
             <div class="payment-card" onclick="triggerPayment('dana')">
                 <div class="logo-box"><img src="dana.png" alt="DANA" onerror="this.src='https://via.placeholder.com/45?text=DANA'"></div>
                 <div class="text-box">
                     <h4>DANA</h4>
                     <p>Transfer melalui DANA</p>
                 </div>
-                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
+            <!-- GoPay -->
             <div class="payment-card" onclick="triggerPayment('gopay')">
                 <div class="logo-box"><img src="gopay.png" alt="GoPay" onerror="this.src='https://via.placeholder.com/45?text=GoPay'"></div>
                 <div class="text-box">
                     <h4>GoPay</h4>
                     <p>Transfer melalui GoPay</p>
                 </div>
-                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
+            <!-- Binance -->
             <div class="payment-card" onclick="triggerPayment('binance')">
                 <div class="logo-box"><img src="binance.png" alt="Binance" onerror="this.src='https://via.placeholder.com/45?text=BNB'"></div>
                 <div class="text-box">
                     <h4>Binance</h4>
                     <p>Transfer melalui Binance</p>
                 </div>
-                <i class="fa-solid fa-chevron-right chevron-icon"></i>
+                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
         </div>
 
+        <!-- Footer Keamanan -->
         <div class="footer-area">
             <div class="safety-note">
-                <i class="fa-solid fa-circle-check"></i>
+                <!-- SVG Shield/Check -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
                 <span>Semua donasi akan digunakan untuk pengembangan konten.</span>
             </div>
             <p>@gwewahid payment community co.id</p>
         </div>
     </div>
 
+    <!-- Modal Pop-up System -->
     <div class="modal-mask" id="globalModal">
         <div class="modal-box">
-            <i class="fa-solid fa-xmark close-modal" onclick="dismissModal()"></i>
-            <h2 id="modalHeader" style="font-size: 18px; font-weight: 700;">Memuat...</h2>
+            <!-- SVG Tombol Tutup -->
+            <svg class="close-modal" onclick="dismissModal()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             
+            <h2 id="modalHeader" style="font-size: 18px; font-weight: 700; color: #fff;">Memuat...</h2>
             <div class="spinner" id="modalSpinner"></div>
             
             <div class="modal-inner" id="modalContainer">
-                </div>
+                <!-- Data dinamis disuntik di sini oleh JS -->
+            </div>
         </div>
     </div>
 
-    <div class="config-trigger" onclick="toggleConfigPanel()"><i class="fa-solid fa-gear"></i></div>
+    <!-- Floating Custom Panel (Tombol Gir Rahasia) -->
+    <div class="config-trigger" onclick="toggleConfigPanel()">
+        <!-- SVG Gir -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+    </div>
     <div class="config-panel" id="configPanel">
         <h5>Kustomisasi Tampilan</h5>
         <div class="config-group">
@@ -494,14 +529,12 @@
                 if(!response.ok) throw new Error('Network error');
                 const data = await response.json();
                 
-                // Ambil rate IDR & format dengan titik desimal ribuan Indonesia
                 const rawRate = data.rates.IDR;
                 const formattedRate = new Intl.NumberFormat('id-ID', { maximumFractionDigits: 0 }).format(rawRate);
                 document.getElementById('usd-rate').innerText = `1 USD = ${formattedRate} IDR`;
                 
-                // Dapatkan tanggal waktu saat ini secara live
                 const sekarang = new Date();
-                const opsiWaktu = { day: 'numeric', month: 'Long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                const opsiWaktu = { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
                 const tanggalFormat = sekarang.toLocaleDateString('id-ID', opsiWaktu) + ' WIB';
                 document.getElementById('update-time').innerText = `• Update: ${tanggalFormat}`;
             } catch (error) {
@@ -540,13 +573,10 @@
 
         // --- 3. KONFIGURASI GRAFIK GARIS AKURAT ---
         const canvasCtx = document.getElementById('lineChartCanvas').getContext('2d');
-        
-        // Gradien halus di bawah garis biru
         let fillGradient = canvasCtx.createLinearGradient(0, 0, 0, 160);
         fillGradient.addColorStop(0, 'rgba(59, 130, 246, 0.35)');
         fillGradient.addColorStop(1, 'rgba(59, 130, 246, 0)');
 
-        // Data statis pergerakan naik turun grafik agar persis gambar
         const chartDataPoints = [16170, 16120, 16220, 16180, 16210, 16190, 16230, 16080, 16160, 16200, 16340, 16220, 16420, 16360, 16520];
         const chartLabels = ['16 Mei','','17 Mei','','18 Mei','','19 Mei','','20 Mei','','21 Mei','','22 Mei','',''];
 
@@ -560,8 +590,7 @@
                     borderWidth: 2,
                     backgroundColor: fillGradient,
                     fill: true,
-                    tension: 0.35, // Kelengkungan garis grafik
-                    // Menghapus semua titik koordinat kecuali titik paling terakhir (simpul ujung kanan)
+                    tension: 0.35,
                     pointRadius: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5],
                     pointBackgroundColor: '#3b82f6',
                     pointBorderColor: '#ffffff',
@@ -579,15 +608,13 @@
                         ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 7 }
                     },
                     y: {
-                        min: 15800, // Sesuai sumbu y gambar asli
+                        min: 15800,
                         max: 16600,
                         ticks: { 
                             stepSize: 200,
                             color: '#64748b',
                             font: { size: 10 },
-                            callback: function(value) {
-                                return value.toLocaleString('id-ID');
-                            }
+                            callback: function(value) { return value.toLocaleString('id-ID'); }
                         },
                         grid: { color: 'rgba(255,255,255,0.03)' }
                     }
@@ -634,7 +661,6 @@
         const headerTextElement = document.getElementById('modalHeader');
 
         function triggerPayment(idMethod) {
-            // Aktifkan Mask Pop-up & Animasi Loading
             maskElement.style.display = 'flex';
             spinnerElement.style.display = 'block';
             containerElement.style.display = 'none';
@@ -642,7 +668,6 @@
 
             const targetData = dbPayment[idMethod];
 
-            // Efek Delay Tepat 1 Detik (1000 milidetik)
             setTimeout(() => {
                 spinnerElement.style.display = 'none';
                 headerTextElement.innerText = targetData.header;
@@ -670,14 +695,12 @@
             maskElement.style.display = 'none';
         }
 
-        // Menutup pop-up secara otomatis jika pengguna tidak sengaja mengetuk area luar kotak modal
         window.onclick = function(e) {
             if (e.target == maskElement) {
                 dismissModal();
             }
         }
 
-        // Menjalankan fungsi utama saat website pertama kali dimuat
         window.onload = function() {
             loadRealTimeRate();
             initCustomData();
