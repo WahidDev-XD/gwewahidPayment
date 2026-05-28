@@ -1,1175 +1,1314 @@
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
-  <title>Modern Payment</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
-
-    body{
-      min-height:100vh;
-      background:
-      radial-gradient(circle at top left,#2563eb22,transparent 30%),
-      radial-gradient(circle at bottom right,#06b6d422,transparent 30%),
-      linear-gradient(
-        145deg,
-        #020617,
-        #0f172a,
-        #111827
-      );
-
-      color:white;
-      overflow-x:hidden;
-      padding:25px;
-    }
-
-    body::before{
-      content:'';
-      position:fixed;
-      width:500px;
-      height:500px;
-      background:#2563eb25;
-      border-radius:50%;
-      filter:blur(140px);
-      top:-220px;
-      left:-150px;
-      z-index:-1;
-    }
-
-    body::after{
-      content:'';
-      position:fixed;
-      width:450px;
-      height:450px;
-      background:#06b6d420;
-      border-radius:50%;
-      filter:blur(140px);
-      bottom:-200px;
-      right:-120px;
-      z-index:-1;
-    }
-
-    .container{
-      max-width:1400px;
-      margin:auto;
-    }
-
-    /* HEADER */
-
-    .header{
-      text-align:center;
-      margin-bottom:60px;
-    }
-
-    .logo{
-      width:120px;
-      height:120px;
-      border-radius:35px;
-      object-fit:cover;
-
-      padding:10px;
-
-      background:
-      rgba(255,255,255,0.08);
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-      border:
-      1px solid rgba(255,255,255,0.08);
-
-      box-shadow:
-      0 10px 40px rgba(37,99,235,0.25);
-
-      margin-bottom:25px;
-    }
-
-    .title{
-      font-size:4rem;
-      font-weight:800;
-
-      background:
-      linear-gradient(
-        to right,
-        #ffffff,
-        #60a5fa,
-        #22d3ee
-      );
+<title>gwewahid - Save & Payment</title>
 
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-      margin-bottom:10px;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    .subtitle{
-      color:#cbd5e1;
-      font-size:1rem;
-    }
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    /* GRID */
+<style>
 
-    .grid{
-      display:grid;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-      grid-template-columns:
-      repeat(auto-fit,minmax(400px,1fr));
+body{
 
-      gap:28px;
-    }
+  min-height:100vh;
 
-    /* CARD */
+  background:
+  radial-gradient(circle at top,#0b57d0,#072b85 40%,#081f66 70%,#06194d);
 
-    .card{
-      position:relative;
+  color:white;
 
-      height:250px;
+  font-family:'Poppins',sans-serif;
 
-      border-radius:35px;
+  overflow-x:hidden;
 
-      overflow:hidden;
+}
 
-      padding:28px;
+/* SCROLL */
 
-      background:
-      linear-gradient(
-        160deg,
-        rgba(255,255,255,0.10),
-        rgba(255,255,255,0.04)
-      );
+::-webkit-scrollbar{
+  width:8px;
+}
 
-      border:
-      1px solid rgba(255,255,255,0.08);
+::-webkit-scrollbar-thumb{
+  background:#60a5fa;
+  border-radius:20px;
+}
 
-      backdrop-filter:blur(18px);
+/* CONTAINER */
 
-      box-shadow:
-      0 10px 40px rgba(0,0,0,0.35);
+.container{
 
-      transition:0.35s ease;
+  width:100%;
+  max-width:950px;
 
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
-    }
+  margin:auto;
 
-    .card:hover{
-      transform:
-      translateY(-10px);
+  padding:40px 20px 70px;
 
-      border:
-      1px solid rgba(96,165,250,0.4);
+}
 
-      box-shadow:
-      0 0 40px rgba(59,130,246,0.20);
-    }
+/* HEADER */
 
-    .card::before{
-      content:'';
-      position:absolute;
+.header{
 
-      width:220px;
-      height:220px;
+  text-align:center;
 
-      border-radius:50%;
+  margin-bottom:35px;
 
-      background:
-      linear-gradient(
-        135deg,
-        rgba(59,130,246,0.15),
-        transparent
-      );
+}
 
-      top:-100px;
-      right:-80px;
-    }
+.logo{
 
-    .top{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      z-index:2;
-    }
+  font-family:'Orbitron',sans-serif;
 
-    .payment-logo{
-      width:75px;
-      height:75px;
-      object-fit:contain;
+  font-size:72px;
 
-      padding:10px;
+  font-weight:700;
 
-      border-radius:20px;
+  color:white;
 
-      background:
-      rgba(255,255,255,0.06);
+  letter-spacing:2px;
 
-      border:
-      1px solid rgba(255,255,255,0.08);
-    }
+  text-shadow:
+  0 0 18px rgba(255,255,255,0.25);
 
-    .payment-name{
-      font-size:2rem;
-      font-weight:700;
-    }
+}
 
-    .payment-desc{
-      margin-top:5px;
-      color:#cbd5e1;
-      font-size:0.95rem;
-    }
+.subtitle{
 
-    .btn{
-      width:100%;
-      border:none;
+  margin-top:5px;
 
-      padding:16px;
+  color:#ffe45c;
 
-      border-radius:18px;
+  font-size:32px;
 
-      background:
-      linear-gradient(
-        135deg,
-        #2563eb,
-        #06b6d4
-      );
+  font-weight:700;
 
-      color:white;
+}
 
-      font-weight:700;
-      font-size:1rem;
+/* CARD */
 
-      cursor:pointer;
+.main-card{
 
-      transition:0.3s;
+  background:
+  linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.03)
+  );
 
-      box-shadow:
-      0 10px 30px rgba(37,99,235,0.25);
+  border:
+  1px solid rgba(255,255,255,0.12);
 
-      z-index:2;
-    }
+  border-radius:35px;
 
-    .btn:hover{
-      transform:scale(1.02);
-    }
+  padding:35px;
 
-    /* LOADING */
+  backdrop-filter:blur(20px);
 
-    .loading{
-      position:fixed;
-      inset:0;
+  box-shadow:
+  0 15px 45px rgba(0,0,0,0.35);
 
-      background:
-      rgba(2,6,23,0.96);
+}
 
-      display:none;
-      justify-content:center;
-      align-items:center;
+/* INFO */
 
-      z-index:99999;
+.info-row{
 
-      backdrop-filter:blur(12px);
-    }
+  display:flex;
 
-    .loading-box{
-      width:100%;
-      max-width:320px;
-      text-align:center;
-    }
+  align-items:center;
 
-    .loading-title{
-      font-size:1.1rem;
-      margin-bottom:18px;
-      color:white;
-    }
+  gap:22px;
 
-    .loading-bar{
-      width:100%;
-      height:10px;
+  padding:22px 0;
 
-      background:
-      rgba(255,255,255,0.08);
+  border-bottom:
+  1px solid rgba(255,255,255,0.12);
 
-      border-radius:50px;
+}
 
-      overflow:hidden;
-    }
+.info-row:last-child{
+  border-bottom:none;
+}
 
-    .loading-progress{
-      width:0%;
-      height:100%;
+.icon-box{
 
-      border-radius:50px;
+  width:85px;
+  height:85px;
 
-      background:
-      linear-gradient(
-        90deg,
-        #06b6d4,
-        #3b82f6,
-        #2563eb
-      );
-    }
+  border-radius:50%;
 
-    .loading-percent{
-      margin-top:10px;
-      color:#93c5fd;
-      font-size:0.95rem;
-    }
+  background:
+  rgba(255,255,255,0.08);
 
-    /* POPUP */
+  display:flex;
+  align-items:center;
+  justify-content:center;
 
-    .popup{
-      position:fixed;
-      inset:0;
+  flex-shrink:0;
 
-      background:
-      rgba(0,0,0,0.75);
+}
 
-      display:none;
-      justify-content:center;
-      align-items:center;
+.icon-box img{
 
-      padding:20px;
+  width:48px;
+  height:48px;
 
-      z-index:9999;
+  object-fit:contain;
 
-      backdrop-filter:blur(10px);
-    }
+}
 
-    .popup-content{
-      width:100%;
-      max-width:460px;
+.info-content{
 
-      background:
-      linear-gradient(
-        180deg,
-        #111827,
-        #0f172a
-      );
+  flex:1;
 
-      border-radius:35px;
+}
 
-      padding:35px;
+.info-title{
 
-      border:
-      1px solid rgba(255,255,255,0.08);
+  font-size:17px;
 
-      position:relative;
+  opacity:0.8;
 
-      overflow:hidden;
+  margin-bottom:8px;
 
-      animation:show 0.3s ease;
-    }
+  font-weight:500;
 
-    .popup-content::before{
-      content:'';
-      position:absolute;
+}
 
-      width:250px;
-      height:250px;
+.info-value{
 
-      background:
-      rgba(59,130,246,0.15);
+  font-family:'Orbitron',sans-serif;
 
-      border-radius:50%;
+  font-size:48px;
 
-      top:-120px;
-      right:-80px;
+  font-weight:700;
 
-      filter:blur(10px);
-    }
+}
 
-    @keyframes show{
-      from{
-        transform:translateY(20px) scale(0.9);
-        opacity:0;
-      }
-      to{
-        transform:translateY(0) scale(1);
-        opacity:1;
-      }
-    }
+.green{
+  color:#ffffff;
+}
 
-    .close{
-      position:absolute;
-      top:15px;
-      right:20px;
+.red{
+  color:#ffffff;
+}
 
-      font-size:2rem;
-      cursor:pointer;
-      color:white;
-      z-index:5;
-    }
+/* USD SECTION */
 
-    .popup-header{
-      text-align:center;
-      margin-bottom:25px;
-      position:relative;
-      z-index:2;
-    }
+.usd-section{
 
-    .popup-logo{
-      width:95px;
-      height:95px;
+  margin-top:40px;
 
-      object-fit:contain;
+}
 
-      padding:14px;
+.usd-title{
 
-      border-radius:25px;
+  text-align:center;
 
-      background:
-      rgba(255,255,255,0.06);
+  font-size:42px;
 
-      border:
-      1px solid rgba(255,255,255,0.08);
+  font-family:'Orbitron',sans-serif;
 
-      margin-bottom:18px;
-    }
+  margin-bottom:25px;
 
-    .popup-title{
-      font-size:2rem;
-      font-weight:700;
-    }
+}
 
-    .popup-name{
-      margin-top:5px;
-      color:#cbd5e1;
-      font-size:1rem;
-    }
+.usd-rate{
 
-    .detail-box{
-      background:
-      rgba(255,255,255,0.05);
+  text-align:center;
 
-      border:
-      1px solid rgba(255,255,255,0.06);
+  font-size:65px;
 
-      border-radius:22px;
+  font-family:'Orbitron',sans-serif;
 
-      padding:18px;
+  font-weight:700;
 
-      margin-bottom:18px;
+}
 
-      position:relative;
-      z-index:2;
-    }
+.rate-box{
 
-    .detail-label{
-      color:#60a5fa;
-      font-size:0.9rem;
-      margin-bottom:5px;
-    }
+  display:flex;
 
-    .detail-value{
-      font-size:1rem;
-      word-break:break-all;
-      font-weight:500;
-    }
+  align-items:center;
+  justify-content:center;
 
-    .copy-btn{
-      width:100%;
-      border:none;
+  gap:15px;
 
-      padding:15px;
+  flex-wrap:wrap;
 
-      border-radius:18px;
+}
 
-      background:
-      linear-gradient(
-        135deg,
-        #2563eb,
-        #06b6d4
-      );
+.percent{
 
-      color:white;
+  background:
+  rgba(74,222,128,0.15);
 
-      font-size:1rem;
-      font-weight:600;
+  border:
+  1px solid rgba(74,222,128,0.3);
 
-      cursor:pointer;
+  color:#4ade80;
 
-      transition:0.3s;
+  padding:7px 14px;
 
-      margin-top:10px;
+  border-radius:12px;
 
-      position:relative;
-      z-index:2;
-    }
+  font-weight:600;
 
-    .copy-btn:hover{
-      transform:scale(1.02);
-    }
+  font-size:18px;
 
-    .qris-image{
-      width:100%;
-      border-radius:22px;
-      margin-top:10px;
+}
 
-      border:
-      1px solid rgba(255,255,255,0.08);
-    }
+.update-time{
 
-    /* TIME */
+  text-align:center;
 
-    .time-box{
-      margin-top:20px;
+  opacity:0.7;
 
-      padding:18px;
+  margin-top:10px;
 
-      border-radius:22px;
+  margin-bottom:35px;
 
-      background:
-      linear-gradient(
-        135deg,
-        rgba(37,99,235,0.18),
-        rgba(6,182,212,0.10)
-      );
+  font-size:18px;
 
-      border:
-      1px solid rgba(96,165,250,0.18);
+}
 
-      text-align:center;
+.chart-container{
 
-      position:relative;
-      z-index:2;
-    }
+  width:100%;
+  height:330px;
 
-    .time-title{
-      color:#93c5fd;
-      font-size:0.9rem;
-      margin-bottom:6px;
-    }
+}
 
-    .time-value{
-      font-size:1rem;
-      font-weight:600;
-      color:white;
-    }
+/* PAYMENT */
 
-    /* TOAST */
+.payment-title{
 
-    .toast{
-      position:fixed;
+  text-align:center;
 
-      bottom:30px;
-      left:50%;
+  margin-top:45px;
+  margin-bottom:25px;
 
-      transform:translateX(-50%);
+  font-size:42px;
 
-      background:
-      linear-gradient(
-        135deg,
-        #2563eb,
-        #06b6d4
-      );
+  font-family:'Orbitron',sans-serif;
 
-      padding:14px 24px;
+}
 
-      border-radius:15px;
+.payment-list{
 
-      font-size:0.95rem;
-      font-weight:500;
+  display:flex;
+  flex-direction:column;
 
-      opacity:0;
-      pointer-events:none;
+  gap:18px;
 
-      transition:0.3s;
+}
 
-      z-index:999999;
-    }
+.payment-card{
 
-    .toast.show{
-      opacity:1;
-      bottom:50px;
-    }
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-    .footer{
-      text-align:center;
-      margin-top:60px;
-      color:#cbd5e1;
-      font-size:0.95rem;
-    }
+  padding:20px;
 
-    @media(max-width:768px){
+  border-radius:25px;
 
-      .title{
-        font-size:2.8rem;
-      }
+  cursor:pointer;
 
-      .grid{
-        grid-template-columns:1fr;
-      }
+  background:
+  linear-gradient(
+    135deg,
+    rgba(96,165,250,0.2),
+    rgba(99,102,241,0.12)
+  );
 
-      .card{
-        height:230px;
-      }
+  border:
+  1px solid rgba(255,255,255,0.08);
 
-    }
+  transition:0.3s;
 
-  </style>
+}
+
+.payment-card:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,0.3);
+
+}
+
+.left-payment{
+
+  display:flex;
+  align-items:center;
+
+  gap:20px;
+
+}
+
+.payment-logo{
+
+  width:78px;
+  height:78px;
+
+  border-radius:18px;
+
+  object-fit:cover;
+
+  background:white;
+
+  padding:8px;
+
+}
+
+.payment-name{
+
+  font-size:36px;
+
+  font-weight:700;
+
+}
+
+.payment-desc{
+
+  opacity:0.7;
+
+  margin-top:5px;
+
+  font-size:18px;
+
+}
+
+.arrow{
+
+  font-size:48px;
+
+  opacity:0.7;
+
+}
+
+/* DONATE INFO */
+
+.donate-info{
+
+  text-align:center;
+
+  margin-top:35px;
+
+  opacity:0.8;
+
+  font-size:20px;
+
+}
+
+/* FOOTER */
+
+.footer{
+
+  text-align:center;
+
+  margin-top:35px;
+
+  padding-top:25px;
+
+  border-top:
+  1px solid rgba(255,255,255,0.1);
+
+  opacity:0.6;
+
+  font-size:22px;
+
+}
+
+/* MODAL */
+
+.modal{
+
+  position:fixed;
+  inset:0;
+
+  background:
+  rgba(0,0,0,0.75);
+
+  display:none;
+
+  align-items:center;
+  justify-content:center;
+
+  z-index:999;
+
+  padding:20px;
+
+}
+
+.modal-box{
+
+  width:100%;
+  max-width:430px;
+
+  background:
+  linear-gradient(
+    180deg,
+    #1145b7,
+    #0d2e85
+  );
+
+  border-radius:30px;
+
+  padding:30px;
+
+  text-align:center;
+
+  position:relative;
+
+  animation:showModal 0.35s ease;
+
+}
+
+@keyframes showModal{
+
+  from{
+    transform:translateY(25px);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+
+}
+
+.close{
+
+  position:absolute;
+
+  top:18px;
+  right:20px;
+
+  font-size:32px;
+
+  cursor:pointer;
+
+}
+
+.loading{
+
+  width:70px;
+  height:70px;
+
+  border-radius:50%;
+
+  border:6px solid rgba(255,255,255,0.2);
+
+  border-top:6px solid white;
+
+  margin:auto;
+
+  animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+  100%{
+    transform:rotate(360deg);
+  }
+
+}
+
+.modal-logo{
+
+  width:110px;
+  height:110px;
+
+  object-fit:cover;
+
+  background:white;
+
+  border-radius:22px;
+
+  padding:10px;
+
+  margin-bottom:18px;
+
+}
+
+.modal-title{
+
+  font-size:34px;
+
+  font-weight:700;
+
+}
+
+.modal-number{
+
+  margin-top:12px;
+
+  font-size:22px;
+
+  opacity:0.9;
+
+  word-break:break-word;
+
+}
+
+.qris-image{
+
+  width:100%;
+
+  border-radius:20px;
+
+  margin-top:22px;
+
+}
+
+.copy-btn{
+
+  width:100%;
+
+  margin-top:22px;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #3b82f6,
+    #8b5cf6
+  );
+
+  color:white;
+
+  font-size:17px;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+  .logo{
+    font-size:52px;
+  }
+
+  .subtitle{
+    font-size:24px;
+  }
+
+  .usd-rate{
+    font-size:42px;
+  }
+
+  .usd-title{
+    font-size:30px;
+  }
+
+  .payment-name{
+    font-size:28px;
+  }
+
+  .info-value{
+    font-size:34px;
+  }
+
+  .payment-logo{
+    width:65px;
+    height:65px;
+  }
+
+}
+
+</style>
 </head>
 <body>
 
-  <!-- LOADING -->
+<div class="container">
 
-  <div class="loading" id="loading">
+  <!-- HEADER -->
 
-    <div class="loading-box">
+  <div class="header">
 
-      <div class="loading-title">
-        Loading Payment...
+    <div class="logo">
+      gwewahid
+    </div>
+
+    <div class="subtitle">
+      Save & Payment
+    </div>
+
+  </div>
+
+  <!-- MAIN CARD -->
+
+  <div class="main-card">
+
+    <!-- SALDO -->
+
+    <div class="info-row">
+
+      <div class="icon-box">
+
+        <!-- GANTI SENDIRI -->
+        <img src="SaldoReksa.png">
+
       </div>
 
-      <div class="loading-bar">
+      <div class="info-content">
+
+        <div class="info-title">
+          SALDO REKSADANA
+        </div>
+
+        <!-- GANTI SENDIRI -->
+        <div class="info-value green">
+          50.000 IDR
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PENGELUARAN -->
+
+    <div class="info-row">
+
+      <div class="icon-box">
+
+        <!-- GANTI SENDIRI -->
+        <img src="Pengeluaran.png">
+
+      </div>
+
+      <div class="info-content">
+
+        <div class="info-title">
+          PENGELUARAN
+        </div>
+
+        <!-- GANTI SENDIRI -->
+        <div class="info-value red">
+          0 IDR
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- USD -->
+
+    <div class="usd-section">
+
+      <div class="usd-title">
+        USD TO IDR
+      </div>
+
+      <div class="rate-box">
+
         <div
-          class="loading-progress"
-          id="loadingProgress"
-        ></div>
+          class="usd-rate"
+          id="usdRate"
+        >
+          Loading...
+        </div>
+
+        <div class="percent">
+          ↑ 0.45%
+        </div>
+
       </div>
 
       <div
-        class="loading-percent"
-        id="loadingPercent"
+        class="update-time"
+        id="updateTime"
       >
-        0%
+        Update realtime...
+      </div>
+
+      <!-- CHART -->
+
+      <div class="chart-container">
+
+        <canvas id="usdChart"></canvas>
+
       </div>
 
     </div>
 
   </div>
 
-  <!-- TOAST -->
+  <!-- PAYMENT -->
 
-  <div class="toast" id="toast">
-    Successfully Copied
+  <div class="payment-title">
+    MY PAYMENT
   </div>
 
-  <div class="container">
+  <div class="payment-list">
 
-    <!-- HEADER -->
+    <!-- QRIS -->
 
-    <div class="header">
+    <div
+      class="payment-card"
+      onclick="openPayment('QRIS')"
+    >
 
-      <img
-        src="logo.png"
-        class="logo"
-      >
-
-      <h1 class="title">
-        Payment
-      </h1>
-
-      <p class="subtitle">
-        Payment List Qris, SeaBank, Binance, Dana, GoPay
-      </p>
-
-    </div>
-
-    <!-- GRID -->
-
-    <div class="grid">
-
-      <!-- QRIS -->
-
-      <div class="card">
-
-        <div class="top">
-
-          <img
-            src="qris.png"
-            class="payment-logo"
-          >
-
-          <div>
-
-            <div class="payment-name">
-              QRIS
-            </div>
-
-            <div class="payment-desc">
-              Scan QRIS untuk pembayaran
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="btn"
-          onclick="
-          openPopup(
-            'QRIS',
-            'gwewahid TopUp',
-            '',
-            'qris.png',
-            true
-          )"
-        >
-          View Details
-        </button>
-
-      </div>
-
-      <!-- DANA -->
-
-      <div class="card">
-
-        <div class="top">
-
-          <img
-            src="dana.png"
-            class="payment-logo"
-          >
-
-          <div>
-
-            <div class="payment-name">
-              DANA
-            </div>
-
-            <div class="payment-desc">
-              Pembayaran digital DANA
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="btn"
-          onclick="
-          openPopup(
-            'DANA',
-            'WAHID B••A',
-            '082195594060',
-            'dana.png',
-            false
-          )"
-        >
-          View Details
-        </button>
-
-      </div>
-
-      <!-- GOPAY -->
-
-      <div class="card">
-
-        <div class="top">
-
-          <img
-            src="gopay.png"
-            class="payment-logo"
-          >
-
-          <div>
-
-            <div class="payment-name">
-              GoPay
-            </div>
-
-            <div class="payment-desc">
-              Pembayaran digital GoPay
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="btn"
-          onclick="
-          openPopup(
-            'GoPay',
-            'WAHID B••A',
-            '082195594060',
-            'gopay.png',
-            false
-          )"
-        >
-          View Details
-        </button>
-
-      </div>
-
-      <!-- SEABANK -->
-
-      <div class="card">
-
-        <div class="top">
-
-          <img
-            src="seabank.png"
-            class="payment-logo"
-          >
-
-          <div>
-
-            <div class="payment-name">
-              SeaBank
-            </div>
-
-            <div class="payment-desc">
-              Transfer melalui SeaBank
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="btn"
-          onclick="
-          openPopup(
-            'SeaBank',
-            'WAHID B••A',
-            '901009462358',
-            'seabank.png',
-            false
-          )"
-        >
-          View Details
-        </button>
-
-      </div>
-
-      <!-- BINANCE -->
-
-      <div class="card">
-
-        <div class="top">
-
-          <img
-            src="binance.png"
-            class="payment-logo"
-          >
-
-          <div>
-
-            <div class="payment-name">
-              Binance
-            </div>
-
-            <div class="payment-desc">
-              Pembayaran crypto Binance
-            </div>
-
-          </div>
-
-        </div>
-
-        <button
-          class="btn"
-          onclick="
-          openPopup(
-            'Binance',
-            'gwewahid',
-            '1176015360',
-            'binance.png',
-            false
-          )"
-        >
-          View Details
-        </button>
-
-      </div>
-
-    </div>
-
-    <!-- FOOTER -->
-
-    <div class="footer">
-      © 2026 Modern Payment Website
-    </div>
-
-  </div>
-
-  <!-- POPUP -->
-
-  <div class="popup" id="popup">
-
-    <div class="popup-content">
-
-      <span
-        class="close"
-        onclick="closePopup()"
-      >
-        &times;
-      </span>
-
-      <div class="popup-header">
+      <div class="left-payment">
 
         <img
-          id="popupLogo"
-          class="popup-logo"
+          src="qris.png"
+          class="payment-logo"
         >
 
-        <div
-          id="popupTitle"
-          class="popup-title"
-        ></div>
+        <div>
 
-        <div
-          id="popupName"
-          class="popup-name"
-        ></div>
+          <div class="payment-name">
+            QRIS
+          </div>
 
-      </div>
+          <div class="payment-desc">
+            Scan QR Code untuk donasi
+          </div>
 
-      <div
-        class="detail-box"
-        id="numberBox"
-      >
-
-        <div class="detail-label">
-          Payment Number
         </div>
 
-        <div
-          class="detail-value"
-          id="popupNumber"
-        ></div>
+      </div>
+
+      <div class="arrow">
+        ›
+      </div>
+
+    </div>
+
+    <!-- SEABANK -->
+
+    <div
+      class="payment-card"
+      onclick="openPayment('SeaBank')"
+    >
+
+      <div class="left-payment">
+
+        <img
+          src="seabank.png"
+          class="payment-logo"
+        >
+
+        <div>
+
+          <div class="payment-name">
+            SeaBank
+          </div>
+
+          <div class="payment-desc">
+            Transfer melalui SeaBank
+          </div>
+
+        </div>
 
       </div>
 
-      <!-- QRIS -->
+      <div class="arrow">
+        ›
+      </div>
+
+    </div>
+
+    <!-- DANA -->
+
+    <div
+      class="payment-card"
+      onclick="openPayment('DANA')"
+    >
+
+      <div class="left-payment">
+
+        <img
+          src="dana.png"
+          class="payment-logo"
+        >
+
+        <div>
+
+          <div class="payment-name">
+            DANA
+          </div>
+
+          <div class="payment-desc">
+            Transfer melalui DANA
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">
+        ›
+      </div>
+
+    </div>
+
+    <!-- GOPAY -->
+
+    <div
+      class="payment-card"
+      onclick="openPayment('GoPay')"
+    >
+
+      <div class="left-payment">
+
+        <img
+          src="gopay.png"
+          class="payment-logo"
+        >
+
+        <div>
+
+          <div class="payment-name">
+            GoPay
+          </div>
+
+          <div class="payment-desc">
+            Transfer melalui GoPay
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">
+        ›
+      </div>
+
+    </div>
+
+    <!-- BINANCE -->
+
+    <div
+      class="payment-card"
+      onclick="openPayment('Binance')"
+    >
+
+      <div class="left-payment">
+
+        <img
+          src="binance.png"
+          class="payment-logo"
+        >
+
+        <div>
+
+          <div class="payment-name">
+            Binance
+          </div>
+
+          <div class="payment-desc">
+            Transfer melalui Binance
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="arrow">
+        ›
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="donate-info">
+    Semua donasi akan digunakan untuk pengembangan konten.
+  </div>
+
+  <div class="footer">
+    @gwewahid payment community co.id
+  </div>
+
+</div>
+
+<!-- MODAL -->
+
+<div class="modal" id="modal">
+
+  <div class="modal-box">
+
+    <div
+      class="close"
+      onclick="closeModal()"
+    >
+      ×
+    </div>
+
+    <div id="modalContent">
+
+      <div class="loading"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================
+   USD RATE REALTIME
+========================= */
+
+async function loadUSD(){
+
+  try{
+
+    const res =
+    await fetch(
+      "https://open.er-api.com/v6/latest/USD"
+    );
+
+    const data =
+    await res.json();
+
+    const rate =
+    Math.round(data.rates.IDR);
+
+    document.getElementById(
+      "usdRate"
+    ).innerHTML =
+    `1 USD = ${rate.toLocaleString("id-ID")} IDR`;
+
+    document.getElementById(
+      "updateTime"
+    ).innerHTML =
+    "• Update: " +
+    new Date().toLocaleString("id-ID",{
+
+      day:'numeric',
+      month:'long',
+      year:'numeric',
+      hour:'2-digit',
+      minute:'2-digit'
+
+    }) +
+    " WIB";
+
+  }catch{
+
+    document.getElementById(
+      "usdRate"
+    ).innerHTML =
+    "FAILED";
+
+  }
+
+}
+
+loadUSD();
+
+setInterval(loadUSD,30000);
+
+/* =========================
+   CHART
+========================= */
+
+const ctx =
+document.getElementById(
+  "usdChart"
+);
+
+new Chart(ctx,{
+
+  type:'line',
+
+  data:{
+
+    labels:[
+      '16 Mei',
+      '17 Mei',
+      '18 Mei',
+      '19 Mei',
+      '20 Mei',
+      '21 Mei',
+      '22 Mei'
+    ],
+
+    datasets:[{
+
+      data:[
+        16100,
+        16220,
+        16190,
+        16120,
+        16280,
+        16340,
+        16480
+      ],
+
+      borderColor:'#3b82f6',
+
+      borderWidth:4,
+
+      tension:0.45,
+
+      pointRadius:0,
+
+      fill:false
+
+    }]
+
+  },
+
+  options:{
+
+    responsive:true,
+
+    maintainAspectRatio:false,
+
+    plugins:{
+
+      legend:{
+        display:false
+      }
+
+    },
+
+    scales:{
+
+      x:{
+
+        ticks:{
+          color:'rgba(255,255,255,0.7)',
+          font:{
+            size:15
+          }
+        },
+
+        grid:{
+          display:false
+        }
+
+      },
+
+      y:{
+
+        ticks:{
+          color:'rgba(255,255,255,0.7)',
+          font:{
+            size:15
+          }
+        },
+
+        grid:{
+          color:'rgba(255,255,255,0.08)'
+        }
+
+      }
+
+    }
+
+  }
+
+});
+
+/* =========================
+   PAYMENT DATA
+========================= */
+
+const payments = {
+
+  QRIS:{
+
+    logo:'qris.png',
+
+    qris:'qrisPay.png'
+
+  },
+
+  SeaBank:{
+
+    logo:'seabank.png',
+
+    name:'Nama Kamu',
+
+    number:'1234567890'
+
+  },
+
+  DANA:{
+
+    logo:'dana.png',
+
+    name:'Nama Kamu',
+
+    number:'081234567890'
+
+  },
+
+  GoPay:{
+
+    logo:'gopay.png',
+
+    name:'Nama Kamu',
+
+    number:'081234567890'
+
+  },
+
+  Binance:{
+
+    logo:'binance.png',
+
+    name:'Binance UID',
+
+    number:'123456789'
+
+  }
+
+};
+
+/* =========================
+   OPEN PAYMENT
+========================= */
+
+function openPayment(type){
+
+  const modal =
+  document.getElementById(
+    "modal"
+  );
+
+  const content =
+  document.getElementById(
+    "modalContent"
+  );
+
+  modal.style.display =
+  "flex";
+
+  /* LOADING */
+
+  content.innerHTML =
+  `<div class="loading"></div>`;
+
+  setTimeout(()=>{
+
+    const pay =
+    payments[type];
+
+    /* QRIS */
+
+    if(type === 'QRIS'){
+
+      content.innerHTML = `
 
       <img
-        src="qrisPay.png"
-        id="qrisImage"
-        class="qris-image"
-        style="display:none;"
+        src="${pay.logo}"
+        class="modal-logo"
       >
 
-      <!-- COPY -->
+      <div class="modal-title">
+        QRIS PAYMENT
+      </div>
+
+      <div class="modal-number">
+        Scan QR Code berikut
+      </div>
+
+      <img
+        src="${pay.qris}"
+        class="qris-image"
+      >
+
+      `;
+
+    }else{
+
+      content.innerHTML = `
+
+      <img
+        src="${pay.logo}"
+        class="modal-logo"
+      >
+
+      <div class="modal-title">
+        ${type}
+      </div>
+
+      <div class="modal-number">
+        ${pay.name}
+      </div>
+
+      <div class="modal-number">
+        ${pay.number}
+      </div>
 
       <button
         class="copy-btn"
-        id="copyButton"
+        onclick="copyText('${pay.number}')"
       >
         Copy Number
       </button>
 
-      <!-- TIME -->
-
-      <div class="time-box">
-
-        <div class="time-title">
-          Real Time Date & Time
-        </div>
-
-        <div
-          class="time-value"
-          id="popupTime"
-        ></div>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <script>
-
-    let realtimeClock;
-
-    function openPopup(
-      title,
-      name,
-      number,
-      logo,
-      isQris
-    ){
-
-      const loading =
-      document.getElementById('loading');
-
-      const progress =
-      document.getElementById(
-        'loadingProgress'
-      );
-
-      const percent =
-      document.getElementById(
-        'loadingPercent'
-      );
-
-      loading.style.display='flex';
-
-      let value = 0;
-
-      progress.style.width='0%';
-      percent.innerText='0%';
-
-      const interval =
-      setInterval(()=>{
-
-        value += 10;
-
-        progress.style.width=
-        value+'%';
-
-        percent.innerText=
-        value+'%';
-
-        if(value >= 100){
-
-          clearInterval(interval);
-
-        }
-
-      },100);
-
-      setTimeout(()=>{
-
-        loading.style.display='none';
-
-        document
-        .getElementById('popup')
-        .style.display='flex';
-
-        document
-        .getElementById('popupTitle')
-        .innerText=title;
-
-        document
-        .getElementById('popupName')
-        .innerText=name;
-
-        document
-        .getElementById('popupLogo')
-        .src=logo;
-
-        const qrisImage =
-        document.getElementById(
-          'qrisImage'
-        );
-
-        const copyButton =
-        document.getElementById(
-          'copyButton'
-        );
-
-        const popupNumber =
-        document.getElementById(
-          'popupNumber'
-        );
-
-        const numberBox =
-        document.getElementById(
-          'numberBox'
-        );
-
-        if(isQris){
-
-          numberBox.style.display='none';
-
-          qrisImage.style.display='block';
-
-          copyButton.style.display='none';
-
-        }
-
-        else{
-
-          numberBox.style.display='block';
-
-          qrisImage.style.display='none';
-
-          copyButton.style.display='block';
-
-          popupNumber.innerText=number;
-
-          copyButton.onclick=function(){
-
-            navigator.clipboard
-            .writeText(number)
-
-            .then(()=>{
-
-              showToast();
-
-            });
-
-          }
-
-        }
-
-        updateTime();
-
-        clearInterval(realtimeClock);
-
-        realtimeClock =
-        setInterval(updateTime,1000);
-
-      },1000);
+      `;
 
     }
 
-    function updateTime(){
+  },1000);
 
-      const now = new Date();
+}
 
-      const options = {
+/* =========================
+   CLOSE MODAL
+========================= */
 
-        weekday:'long',
-        year:'numeric',
-        month:'long',
-        day:'numeric',
-        hour:'2-digit',
-        minute:'2-digit',
-        second:'2-digit'
+function closeModal(){
 
-      };
+  document.getElementById(
+    "modal"
+  ).style.display =
+  "none";
 
-      document
-      .getElementById('popupTime')
-      .innerText =
-      now.toLocaleDateString(
-        'id-ID',
-        options
-      );
+}
 
-    }
+/* =========================
+   COPY
+========================= */
 
-    function closePopup(){
+function copyText(text){
 
-      document
-      .getElementById('popup')
-      .style.display='none';
+  navigator.clipboard
+  .writeText(text);
 
-      clearInterval(realtimeClock);
+  alert(
+    "Berhasil disalin!"
+  );
 
-    }
+}
 
-    function showToast(){
-
-      const toast =
-      document.getElementById(
-        'toast'
-      );
-
-      toast.classList.add('show');
-
-      setTimeout(()=>{
-
-        toast.classList.remove('show');
-
-      },2000);
-
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
