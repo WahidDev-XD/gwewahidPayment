@@ -122,6 +122,17 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .live-badge {
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
         }
         .chart-header h3 {
             font-size: 24px;
@@ -368,8 +379,11 @@
 
             <div class="chart-container">
                 <div class="chart-header">
-                    <p>KURS USD TO IDR</p>
-                    <h3 id="usd-rate">Rp 16.250</h3>
+                    <p>
+                        KURS USD TO IDR
+                        <span class="live-badge">● LIVE</span>
+                    </p>
+                    <h3 id="usd-rate">Memuat Data...</h3>
                 </div>
                 <div class="chart-wrapper">
                     <canvas id="usdIdrChart"></canvas>
@@ -382,42 +396,27 @@
         <div class="payment-container">
             <div class="payment-card" onclick="triggerPayment('qris')">
                 <div class="logo-box"><img src="qris.png" alt="QRIS" onerror="this.src='https://via.placeholder.com/45?text=QRIS'"></div>
-                <div class="text-box">
-                    <h4>QRIS</h4>
-                    <p>Scan QR Code</p>
-                </div>
+                <div class="text-box"><h4>QRIS</h4><p>Scan QR Code</p></div>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
             <div class="payment-card" onclick="triggerPayment('seabank')">
                 <div class="logo-box"><img src="seabank.png" alt="SeaBank" onerror="this.src='https://via.placeholder.com/45?text=SB'"></div>
-                <div class="text-box">
-                    <h4>SeaBank</h4>
-                    <p>Transfer melalui SeaBank</p>
-                </div>
+                <div class="text-box"><h4>SeaBank</h4><p>Transfer melalui SeaBank</p></div>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
             <div class="payment-card" onclick="triggerPayment('dana')">
                 <div class="logo-box"><img src="dana.png" alt="DANA" onerror="this.src='https://via.placeholder.com/45?text=DANA'"></div>
-                <div class="text-box">
-                    <h4>DANA</h4>
-                    <p>Transfer melalui DANA</p>
-                </div>
+                <div class="text-box"><h4>DANA</h4><p>Transfer melalui DANA</p></div>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
             <div class="payment-card" onclick="triggerPayment('gopay')">
                 <div class="logo-box"><img src="gopay.png" alt="GoPay" onerror="this.src='https://via.placeholder.com/45?text=GoPay'"></div>
-                <div class="text-box">
-                    <h4>GoPay</h4>
-                    <p>Transfer melalui GoPay</p>
-                </div>
+                <div class="text-box"><h4>GoPay</h4><p>Transfer melalui GoPay</p></div>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
             <div class="payment-card" onclick="triggerPayment('binance')">
                 <div class="logo-box"><img src="binance.png" alt="Binance" onerror="this.src='https://via.placeholder.com/45?text=BNB'"></div>
-                <div class="text-box">
-                    <h4>Binance</h4>
-                    <p>Transfer melalui Binance</p>
-                </div>
+                <div class="text-box"><h4>Binance</h4><p>Transfer melalui Binance</p></div>
                 <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
         </div>
@@ -434,10 +433,8 @@
     <div class="modal-mask" id="globalModal">
         <div class="modal-box">
             <svg class="close-modal" onclick="dismissModal()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            
             <h2 id="modalHeader" style="font-size: 18px; font-weight: 700; color: #fff;">Memuat...</h2>
             <div class="spinner" id="modalSpinner"></div>
-            
             <div class="modal-inner" id="modalContainer"></div>
         </div>
     </div>
@@ -459,7 +456,7 @@
     </div>
 
     <script>
-        // --- 1. KUSTOMISASI DATA MANDIRI (LOCALSTORAGE) ---
+        // --- 1. KUSTOMISASI DATA MANDIRI ---
         function initCustomData() {
             let localSaldo = localStorage.getItem('custom_saldo') || '0';
             let localPemasukan = localStorage.getItem('custom_pemasukan') || '0';
@@ -479,89 +476,95 @@
         function saveCustomData() {
             const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
             const valPemasukan = document.getElementById('input-pemasukan').value.trim() || '0';
-            
             localStorage.setItem('custom_saldo', valSaldo);
             localStorage.setItem('custom_pemasukan', valPemasukan);
-            
             initCustomData();
             toggleConfigPanel();
         }
 
-        // --- 2. GRAFIK USD TO IDR ---
-        function initUsdChart() {
+        // --- 2. FETCH DATA REAL-TIME API (KURS USD TO IDR) ---
+        async function initUsdChart() {
             const ctx = document.getElementById('usdIdrChart').getContext('2d');
-            // Simulasi pergerakan kurs USD
-            const chartData = [15950, 16000, 16120, 16080, 16150, 16200, 16250]; 
-            
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-                    datasets: [{
-                        data: chartData,
-                        borderColor: '#fde047', 
-                        borderWidth: 2,
-                        backgroundColor: 'rgba(253, 224, 71, 0.1)',
-                        fill: true,
-                        tension: 0.4,
-                        pointRadius: 2,
-                        pointBackgroundColor: '#fde047'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: true }
-                    },
-                    scales: {
-                        x: { 
-                            display: true, 
-                            ticks: { color: '#64748b', font: { size: 10 } },
-                            grid: { display: false } 
+            const rateElement = document.getElementById('usd-rate');
+
+            try {
+                // Fetch dari API publik gratis (open.er-api)
+                const response = await fetch('https://open.er-api.com/v6/latest/USD');
+                const data = await response.json();
+
+                if (data && data.rates && data.rates.IDR) {
+                    const liveRate = data.rates.IDR;
+                    
+                    // Format ke Rupiah
+                    rateElement.innerText = new Intl.NumberFormat('id-ID', { 
+                        style: 'currency', 
+                        currency: 'IDR',
+                        minimumFractionDigits: 0
+                    }).format(liveRate);
+
+                    // Buat trend grafik menyesuaikan data live (fluktuasi kecil historis simulasi berujung ke data live)
+                    const chartData = [
+                        liveRate * 0.985, 
+                        liveRate * 0.990, 
+                        liveRate * 0.987, 
+                        liveRate * 0.993, 
+                        liveRate * 0.996, 
+                        liveRate * 0.998, 
+                        liveRate // TITIK TERAKHIR ADALAH DATA LIVE SAAT INI
+                    ];
+
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['H-6', 'H-5', 'H-4', 'H-3', 'H-2', 'H-1', 'Live'],
+                            datasets: [{
+                                data: chartData,
+                                borderColor: '#fde047', 
+                                borderWidth: 2,
+                                backgroundColor: 'rgba(253, 224, 71, 0.1)',
+                                fill: true,
+                                tension: 0.4,
+                                pointRadius: 3,
+                                pointBackgroundColor: '#fde047'
+                            }]
                         },
-                        y: { 
-                            display: true, 
-                            ticks: { color: '#64748b', font: { size: 10 } },
-                            grid: { color: 'rgba(255, 255, 255, 0.05)' } 
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: true }
+                            },
+                            scales: {
+                                x: { 
+                                    display: true, 
+                                    ticks: { color: '#64748b', font: { size: 10 } },
+                                    grid: { display: false } 
+                                },
+                                y: { 
+                                    display: true, 
+                                    ticks: { color: '#64748b', font: { size: 10 } },
+                                    grid: { color: 'rgba(255, 255, 255, 0.05)' } 
+                                }
+                            }
                         }
-                    }
+                    });
+                } else {
+                    rateElement.innerText = "Gagal mengambil data";
                 }
-            });
+            } catch (error) {
+                console.error("Error fetching USD rate:", error);
+                rateElement.innerText = "Koneksi Bermasalah";
+            }
         }
 
-        // --- 3. DATABASE MODAL PAYMENT & SIMULASI LOADING ---
+        // --- 3. DATABASE MODAL PAYMENT ---
         const dbPayment = {
-            qris: {
-                header: "Scan QRIS Donasi",
-                isImage: true,
-                resource: "qrisPay.png" 
-            },
-            seabank: {
-                header: "Transfer Bank",
-                isImage: false,
-                owner: "Wahid",
-                number: "9012 8873 2190"
-            },
-            dana: {
-                header: "Transfer E-Wallet DANA",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            gopay: {
-                header: "Transfer E-Wallet GoPay",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            binance: {
-                header: "Binance Pay ID",
-                isImage: false,
-                owner: "gwewahid Crypto Account",
-                number: "Pay ID: 77210923"
-            }
+            qris: { header: "Scan QRIS Donasi", isImage: true, resource: "qrisPay.png" },
+            seabank: { header: "Transfer Bank", isImage: false, owner: "Wahid", number: "9012 8873 2190" },
+            dana: { header: "Transfer E-Wallet DANA", isImage: false, owner: "Wahid / gwewahid", number: "0812 3456 7890" },
+            gopay: { header: "Transfer E-Wallet GoPay", isImage: false, owner: "Wahid / gwewahid", number: "0812 3456 7890" },
+            binance: { header: "Binance Pay ID", isImage: false, owner: "gwewahid Crypto Account", number: "Pay ID: 77210923" }
         };
 
         const maskElement = document.getElementById('globalModal');
@@ -574,13 +577,11 @@
             spinnerElement.style.display = 'block';
             containerElement.style.display = 'none';
             headerTextElement.innerText = "Memproses...";
-
             const targetData = dbPayment[idMethod];
 
             setTimeout(() => {
                 spinnerElement.style.display = 'none';
                 headerTextElement.innerText = targetData.header;
-                
                 if (targetData.isImage) {
                     containerElement.innerHTML = `
                         <p style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">Silakan scan kode QR di bawah ini:</p>
@@ -597,19 +598,13 @@
                     `;
                 }
                 containerElement.style.display = 'block';
-            }, 1000); 
+            }, 800); // Simulasi delay loading popup
         }
 
-        function dismissModal() {
-            maskElement.style.display = 'none';
-        }
+        function dismissModal() { maskElement.style.display = 'none'; }
+        window.onclick = function(e) { if (e.target == maskElement) { dismissModal(); } }
 
-        window.onclick = function(e) {
-            if (e.target == maskElement) {
-                dismissModal();
-            }
-        }
-
+        // --- INIT SAAT HALAMAN DIMUAT ---
         window.onload = function() {
             initCustomData();
             initUsdChart();
