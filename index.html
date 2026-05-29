@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save & Payment - gwewahid</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
@@ -16,8 +15,6 @@
             --text-muted: #64748b;
             --accent-yellow: #fde047;
             --accent-blue: #3b82f6;
-            --accent-green: #10b981;
-            --accent-red: #ef4444;
         }
 
         *, *::before, *::after {
@@ -46,9 +43,22 @@
         }
 
         /* Header */
-        .header { text-align: center; margin-bottom: 5px; }
-        .header h1 { font-size: 42px; font-weight: bold; color: #ffffff; margin-bottom: 2px; }
-        .header h2 { color: var(--accent-yellow); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
+        .header {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .header h1 {
+            font-size: 42px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .header h2 {
+            color: var(--accent-yellow);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
 
         /* Utama Card */
         .main-card {
@@ -61,107 +71,231 @@
         }
 
         /* Bagian Informasi Keuangan */
-        .finance-section { display: flex; flex-direction: column; }
-        .info-block { display: flex; align-items: center; gap: 16px; padding: 4px 0; }
+        .finance-section {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-block {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 4px 0;
+        }
         .info-icon {
-            width: 44px; height: 44px; background: rgba(255, 255, 255, 0.06);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; 
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8; 
         }
-        .info-details p { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-        .info-details h3 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
-        .divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 18px 0; }
-
-        /* Mutual Fund Rate Section */
-        .rate-section { text-align: center; margin-top: 5px; min-height: 70px; }
-        .rate-title { font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: 1px; margin-bottom: 6px; }
-        .rate-row { display: inline-flex; align-items: center; justify-content: center; position: relative; margin-bottom: 6px; }
-        .rate-value { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
-        
-        .badge-green {
-            background: rgba(16, 185, 129, 0.15); color: var(--accent-green);
-            padding: 3px 6px; border-radius: 5px; font-size: 11px; font-weight: 700; margin-left: 8px;
-            display: flex; align-items: center; gap: 3px;
+        .info-details p {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 4px;
         }
-        .badge-red {
-            background: rgba(239, 68, 68, 0.15); color: var(--accent-red);
-            padding: 3px 6px; border-radius: 5px; font-size: 11px; font-weight: 700; margin-left: 8px;
-            display: flex; align-items: center; gap: 3px;
+        .info-details h3 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
-        
-        .update-time { font-size: 11px; color: #64748b; }
-
-        /* Grafik Line Chart */
-        .chart-wrapper { width: 100%; height: 160px; margin-top: 20px; position: relative;}
+        .divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+            margin: 18px 0;
+        }
 
         /* Title Bagian Payment */
-        .payment-title { text-align: center; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; margin: 10px 0 2px 0; }
+        .payment-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin: 10px 0 2px 0;
+        }
 
         /* Payment List */
-        .payment-container { display: flex; flex-direction: column; gap: 12px; }
-        .payment-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px;
-            padding: 14px 18px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s ease-in-out;
+        .payment-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .payment-card:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); transform: translateY(-1px); }
+        .payment-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .payment-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
         .logo-box {
-            width: 44px; height: 44px; border-radius: 10px; background-color: #ffffff;
-            display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 4px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-        .text-box { flex: 1; }
-        .text-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-        .text-box p { font-size: 12px; color: #64748b; }
-        .chevron-icon { color: #475569; }
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .text-box {
+            flex: 1;
+        }
+        .text-box h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        .text-box p {
+            font-size: 12px;
+            color: #64748b;
+        }
+        .chevron-icon {
+            color: #475569;
+        }
 
         /* Footer */
-        .footer-area { text-align: center; color: #475569; font-size: 11px; margin-top: 10px; }
-        .safety-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; color: #64748b; font-size: 12px; }
+        .footer-area {
+            text-align: center;
+            color: #475569;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+        .safety-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            color: #64748b;
+            font-size: 12px;
+        }
 
         /* Modal / Pop-up Layout */
         .modal-mask {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 10, 23, 0.85); backdrop-filter: blur(8px);
-            display: none; align-items: center; justify-content: center; z-index: 9999;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(4, 10, 23, 0.85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
         }
         .modal-box {
-            background: #0f2142; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-            width: 90%; max-width: 380px; padding: 28px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            background: #0f2142;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+            padding: 28px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
-        .close-modal { position: absolute; top: 18px; right: 18px; color: #64748b; cursor: pointer; transition: color 0.2s; }
+        .close-modal {
+            position: absolute;
+            top: 18px; right: 18px;
+            color: #64748b;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
         .close-modal:hover { color: #fff; }
         
+        /* Loading Spinner */
         .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.08); border-top: 3px solid var(--accent-blue);
-            border-radius: 50%; width: 44px; height: 44px; animation: spin 0.8s linear infinite; margin: 30px auto;
+            border: 3px solid rgba(255, 255, 255, 0.08);
+            border-top: 3px solid var(--accent-blue);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            animation: spin 0.8s linear infinite;
+            margin: 30px auto;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-        .modal-inner { display: none; margin-top: 15px; }
-        .modal-inner img { max-width: 85%; border-radius: 12px; margin: 15px auto 5px auto; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-        .display-data { background: rgba(4, 10, 23, 0.4); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; margin-top: 15px; text-align: left; }
+        .modal-inner {
+            display: none;
+            margin-top: 15px;
+        }
+        .modal-inner img {
+            max-width: 85%;
+            border-radius: 12px;
+            margin: 15px auto 5px auto;
+            display: block;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+        .display-data {
+            background: rgba(4, 10, 23, 0.4);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 15px;
+            text-align: left;
+        }
         .display-data label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
         .display-data h3 { color: var(--accent-yellow); margin-bottom: 12px; font-size: 18px; font-weight: 700; }
         .display-data p { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; color: #ffffff; }
 
         /* Floating Custom/Admin Panel */
         .config-trigger {
-            position: fixed; bottom: 20px; right: 20px; width: 44px; height: 44px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; z-index: 1000; transition: all 0.2s;
+            position: fixed;
+            bottom: 20px; right: 20px;
+            width: 44px; height: 44px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; color: #64748b; z-index: 1000;
+            transition: all 0.2s;
         }
         .config-trigger:hover { color: #fff; background: rgba(255,255,255,0.1); }
         
         .config-panel {
-            position: fixed; bottom: 75px; right: 20px; background: #0f2142;
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px; width: 260px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: none; flex-direction: column; gap: 12px; z-index: 1000;
+            position: fixed;
+            bottom: 75px; right: 20px;
+            background: #0f2142;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 16px; width: 260px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: none; flex-direction: column; gap: 12px; z-index: 1000;
         }
         .config-panel h5 { font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; color: #fff; }
         .config-group { display: flex; flex-direction: column; gap: 4px; }
         .config-group label { font-size: 11px; color: #94a3b8; }
-        .config-group input { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 600; }
-        .config-btn { background: var(--accent-blue); color: #fff; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; margin-top: 4px; }
+        .config-group input { 
+            background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); 
+            padding: 6px 10px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 600;
+        }
+        .config-btn {
+            background: var(--accent-blue); color: #fff; border: none; padding: 8px;
+            border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; margin-top: 4px;
+        }
         .config-btn:hover { opacity: 0.9; }
     </style>
 </head>
@@ -203,21 +337,6 @@
                         <h3 id="display-pengeluaran">0 IDR</h3>
                     </div>
                 </div>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="rate-section">
-                <p class="rate-title">NAB REKSADANA INDEKS (ETF)</p>
-                <div class="rate-row">
-                    <h2 class="rate-value" id="nab-rate">Loading...</h2>
-                    <span class="badge-green" id="rate-badge" style="display:none;">-</span>
-                </div>
-                <p class="update-time" id="update-time">• Menarik data live dari bursa...</p>
-            </div>
-
-            <div class="chart-wrapper">
-                <canvas id="lineChartCanvas"></canvas>
             </div>
         </div>
 
@@ -278,8 +397,10 @@
     <div class="modal-mask" id="globalModal">
         <div class="modal-box">
             <svg class="close-modal" onclick="dismissModal()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            
             <h2 id="modalHeader" style="font-size: 18px; font-weight: 700; color: #fff;">Memuat...</h2>
             <div class="spinner" id="modalSpinner"></div>
+            
             <div class="modal-inner" id="modalContainer"></div>
         </div>
     </div>
@@ -301,51 +422,116 @@
     </div>
 
     <script>
-        let lineChartInstance = null;
+        // --- 1. SISTEM KUSTOMISASI DATA MANDIRI (LOCALSTORAGE) ---
+        function initCustomData() {
+            let localSaldo = localStorage.getItem('custom_saldo') || '0';
+            let localPengeluaran = localStorage.getItem('custom_pengeluaran') || '0';
+            
+            document.getElementById('display-saldo').innerText = localSaldo.includes('IDR') ? localSaldo : `${localSaldo} IDR`;
+            document.getElementById('display-pengeluaran').innerText = localPengeluaran.includes('IDR') ? localPengeluaran : `${localPengeluaran} IDR`;
+            
+            document.getElementById('input-saldo').value = localSaldo.replace(' IDR', '');
+            document.getElementById('input-pengeluaran').value = localPengeluaran.replace(' IDR', '');
+        }
 
-        // --- 1. MENGAMBIL DATA OTOMATIS (BYPASS API YAHOO FINANCE & PROXY) ---
-        async function fetchAutoReksadana() {
-            try {
-                // Endpoint Yahoo Finance API untuk ETF Reksadana Indonesia (Premier ETF IDX30 - Ticker: XIIT.JK)
-                const targetUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/XIIT.JK?interval=1d&range=1mo';
-                
-                // Menggunakan AllOrigins sebagai Proxy Server untuk membypass blokir Browser (CORS)
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-                
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                const json = await response.json();
-                const result = json.chart.result[0];
-                const timestamps = result.timestamp;
-                const closePrices = result.indicators.quote[0].close;
+        function toggleConfigPanel() {
+            const panel = document.getElementById('configPanel');
+            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-                // Membersihkan data kosong (hari sabtu/minggu bursa tutup)
-                let validData = [];
-                for(let i = 0; i < timestamps.length; i++) {
-                    if(closePrices[i] !== null) {
-                        validData.push({
-                            date: new Date(timestamps[i] * 1000),
-                            price: closePrices[i]
-                        });
-                    }
+        function saveCustomData() {
+            const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
+            const valPengeluaran = document.getElementById('input-pengeluaran').value.trim() || '0';
+            
+            localStorage.setItem('custom_saldo', valSaldo);
+            localStorage.setItem('custom_pengeluaran', valPengeluaran);
+            
+            initCustomData();
+            toggleConfigPanel();
+        }
+
+        // --- 2. DATABASE MODAL PAYMENT & SIMULASI LOADING ---
+        const dbPayment = {
+            qris: {
+                header: "Scan QRIS Donasi",
+                isImage: true,
+                resource: "qrisPay.png" 
+            },
+            seabank: {
+                header: "Transfer Bank",
+                isImage: false,
+                owner: "Wahid",
+                number: "9012 8873 2190"
+            },
+            dana: {
+                header: "Transfer E-Wallet DANA",
+                isImage: false,
+                owner: "Wahid / gwewahid",
+                number: "0812 3456 7890"
+            },
+            gopay: {
+                header: "Transfer E-Wallet GoPay",
+                isImage: false,
+                owner: "Wahid / gwewahid",
+                number: "0812 3456 7890"
+            },
+            binance: {
+                header: "Binance Pay ID",
+                isImage: false,
+                owner: "gwewahid Crypto Account",
+                number: "Pay ID: 77210923"
+            }
+        };
+
+        const maskElement = document.getElementById('globalModal');
+        const spinnerElement = document.getElementById('modalSpinner');
+        const containerElement = document.getElementById('modalContainer');
+        const headerTextElement = document.getElementById('modalHeader');
+
+        function triggerPayment(idMethod) {
+            maskElement.style.display = 'flex';
+            spinnerElement.style.display = 'block';
+            containerElement.style.display = 'none';
+            headerTextElement.innerText = "Memproses...";
+
+            const targetData = dbPayment[idMethod];
+
+            setTimeout(() => {
+                spinnerElement.style.display = 'none';
+                headerTextElement.innerText = targetData.header;
+                
+                if (targetData.isImage) {
+                    containerElement.innerHTML = `
+                        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">Silakan scan kode QR di bawah ini:</p>
+                        <img src="${targetData.resource}" alt="QRIS" onerror="this.src='https://via.placeholder.com/250?text=Gambar+qrisPay.png+Belum+Ada'">
+                    `;
+                } else {
+                    containerElement.innerHTML = `
+                        <div class="display-data">
+                            <label>Atas Nama / Pemilik:</label>
+                            <h3>${targetData.owner}</h3>
+                            <label>Nomor Rekening / ID Tujuan:</label>
+                            <p>${targetData.number}</p>
+                        </div>
+                    `;
                 }
+                containerElement.style.display = 'block';
+            }, 1000); 
+        }
 
-                // Ambil maksimal 14 hari perdagangan terakhir untuk grafik
-                validData = validData.slice(-14);
-                
-                const labels = validData.map((d, index) => {
-                    if(index === validData.length - 1) return 'Live/EOD';
-                    return d.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-                });
-                const prices = validData.map(d => parseFloat(d.price.toFixed(2)));
+        function dismissModal() {
+            maskElement.style.display = 'none';
+        }
 
-                // Kalkulasi harga terkini dan perubahan
-                const currentPrice = prices[prices.length - 1];
-                const previousPrice = prices[prices.length - 2];
-                const percentChange = (((currentPrice - previousPrice) / previousPrice) * 100).toFixed(2);
-                const isUp = percentChange >= 0;
+        window.onclick = function(e) {
+            if (e.target == maskElement) {
+                dismissModal();
+            }
+        }
 
-                // Update Tampilan DOM
-                const formattedRate = new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(currentPrice);
-                document.getElementById('na
+        window.onload = function() {
+            initCustomData();
+        };
+    </script>
+</body>
+</html>
