@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save & Payment - gwewahid</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
@@ -108,6 +109,30 @@
             height: 1px;
             background: rgba(255, 255, 255, 0.08);
             margin: 18px 0;
+        }
+
+        /* Grafik USD */
+        .chart-container {
+            margin-top: 10px;
+            width: 100%;
+        }
+        .chart-header p {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .chart-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            margin: 4px 0 12px 0;
+        }
+        .chart-wrapper {
+            position: relative;
+            width: 100%;
+            height: 150px;
         }
 
         /* Title Bagian Payment */
@@ -318,8 +343,8 @@
                         </svg>
                     </div>
                     <div class="info-details">
-                        <p>Saldo Reksadana</p>
-                        <h3 id="display-saldo">0 IDR</h3>
+                        <p>Saldo Tabungan</p>
+                        <h3 id="display-saldo">1.000 IDR</h3>
                     </div>
                 </div>
                 
@@ -333,9 +358,21 @@
                         </svg>
                     </div>
                     <div class="info-details">
-                        <p>Pengeluaran</p>
-                        <h3 id="display-pengeluaran">0 IDR</h3>
+                        <p>Pemasukan</p>
+                        <h3 id="display-pemasukan">1.000 IDR</h3>
                     </div>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="chart-container">
+                <div class="chart-header">
+                    <p>KURS USD TO IDR</p>
+                    <h3 id="usd-rate">Rp 16.250</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="usdIdrChart"></canvas>
                 </div>
             </div>
         </div>
@@ -411,27 +448,27 @@
     <div class="config-panel" id="configPanel">
         <h5>Kustomisasi Tampilan</h5>
         <div class="config-group">
-            <label>Saldo Reksadana:</label>
+            <label>Saldo Tabungan:</label>
             <input type="text" id="input-saldo" placeholder="Contoh: 0">
         </div>
         <div class="config-group">
-            <label>Pengeluaran:</label>
-            <input type="text" id="input-pengeluaran" placeholder="Contoh: 0">
+            <label>Pemasukan:</label>
+            <input type="text" id="input-pemasukan" placeholder="Contoh: 0">
         </div>
         <button class="config-btn" onclick="saveCustomData()">Simpan Perubahan</button>
     </div>
 
     <script>
-        // --- 1. SISTEM KUSTOMISASI DATA MANDIRI (LOCALSTORAGE) ---
+        // --- 1. KUSTOMISASI DATA MANDIRI (LOCALSTORAGE) ---
         function initCustomData() {
             let localSaldo = localStorage.getItem('custom_saldo') || '0';
-            let localPengeluaran = localStorage.getItem('custom_pengeluaran') || '0';
+            let localPemasukan = localStorage.getItem('custom_pemasukan') || '0';
             
             document.getElementById('display-saldo').innerText = localSaldo.includes('IDR') ? localSaldo : `${localSaldo} IDR`;
-            document.getElementById('display-pengeluaran').innerText = localPengeluaran.includes('IDR') ? localPengeluaran : `${localPengeluaran} IDR`;
+            document.getElementById('display-pemasukan').innerText = localPemasukan.includes('IDR') ? localPemasukan : `${localPemasukan} IDR`;
             
             document.getElementById('input-saldo').value = localSaldo.replace(' IDR', '');
-            document.getElementById('input-pengeluaran').value = localPengeluaran.replace(' IDR', '');
+            document.getElementById('input-pemasukan').value = localPemasukan.replace(' IDR', '');
         }
 
         function toggleConfigPanel() {
@@ -441,97 +478,4 @@
 
         function saveCustomData() {
             const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
-            const valPengeluaran = document.getElementById('input-pengeluaran').value.trim() || '0';
-            
-            localStorage.setItem('custom_saldo', valSaldo);
-            localStorage.setItem('custom_pengeluaran', valPengeluaran);
-            
-            initCustomData();
-            toggleConfigPanel();
-        }
-
-        // --- 2. DATABASE MODAL PAYMENT & SIMULASI LOADING ---
-        const dbPayment = {
-            qris: {
-                header: "Scan QRIS Donasi",
-                isImage: true,
-                resource: "qrisPay.png" 
-            },
-            seabank: {
-                header: "Transfer Bank",
-                isImage: false,
-                owner: "Wahid",
-                number: "9012 8873 2190"
-            },
-            dana: {
-                header: "Transfer E-Wallet DANA",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            gopay: {
-                header: "Transfer E-Wallet GoPay",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            binance: {
-                header: "Binance Pay ID",
-                isImage: false,
-                owner: "gwewahid Crypto Account",
-                number: "Pay ID: 77210923"
-            }
-        };
-
-        const maskElement = document.getElementById('globalModal');
-        const spinnerElement = document.getElementById('modalSpinner');
-        const containerElement = document.getElementById('modalContainer');
-        const headerTextElement = document.getElementById('modalHeader');
-
-        function triggerPayment(idMethod) {
-            maskElement.style.display = 'flex';
-            spinnerElement.style.display = 'block';
-            containerElement.style.display = 'none';
-            headerTextElement.innerText = "Memproses...";
-
-            const targetData = dbPayment[idMethod];
-
-            setTimeout(() => {
-                spinnerElement.style.display = 'none';
-                headerTextElement.innerText = targetData.header;
-                
-                if (targetData.isImage) {
-                    containerElement.innerHTML = `
-                        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">Silakan scan kode QR di bawah ini:</p>
-                        <img src="${targetData.resource}" alt="QRIS" onerror="this.src='https://via.placeholder.com/250?text=Gambar+qrisPay.png+Belum+Ada'">
-                    `;
-                } else {
-                    containerElement.innerHTML = `
-                        <div class="display-data">
-                            <label>Atas Nama / Pemilik:</label>
-                            <h3>${targetData.owner}</h3>
-                            <label>Nomor Rekening / ID Tujuan:</label>
-                            <p>${targetData.number}</p>
-                        </div>
-                    `;
-                }
-                containerElement.style.display = 'block';
-            }, 1000); 
-        }
-
-        function dismissModal() {
-            maskElement.style.display = 'none';
-        }
-
-        window.onclick = function(e) {
-            if (e.target == maskElement) {
-                dismissModal();
-            }
-        }
-
-        window.onload = function() {
-            initCustomData();
-        };
-    </script>
-</body>
-</html>
+            const valPemasukan = document.getElementById('input-p
