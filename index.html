@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save & Payment - gwewahid</title>
+    <title>Save & Payment - Majoris Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <style>
         :root {
             --bg-color: #0b1f42;
@@ -17,490 +16,101 @@
             --accent-yellow: #fde047;
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
-            --accent-red: #ef4444;
         }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(180deg, #0a1c3a 0%, #040a17 100%);
-            color: var(--text-main);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 40px 20px;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 450px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        /* Header */
-        .header { text-align: center; margin-bottom: 5px; }
-        .header h1 { font-size: 42px; font-weight: bold; color: #ffffff; margin-bottom: 2px; }
-        .header h2 { color: var(--accent-yellow); font-size: 16px; font-weight: 700; letter-spacing: 0.5px; }
-
-        /* Utama Card */
-        .main-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 24px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* Bagian Informasi Keuangan */
-        .finance-section { display: flex; flex-direction: column; }
-        .info-block { display: flex; align-items: center; gap: 16px; padding: 4px 0; }
-        .info-icon {
-            width: 44px; height: 44px; background: rgba(255, 255, 255, 0.06);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #94a3b8; 
-        }
-        .info-details p { font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
-        .info-details h3 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
-        .divider { height: 1px; background: rgba(255, 255, 255, 0.08); margin: 18px 0; }
-
-        /* Mutual Fund Rate Section */
-        .rate-section { text-align: center; margin-top: 5px; min-height: 70px; }
-        .rate-title { font-size: 12px; font-weight: 700; color: #94a3b8; letter-spacing: 1px; margin-bottom: 6px; }
-        .rate-row { display: inline-flex; align-items: center; justify-content: center; position: relative; margin-bottom: 6px; }
-        .rate-value { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+        *, * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: linear-gradient(180deg, #0a1c3a 0%, #040a17 100%); color: var(--text-main); min-height: 100vh; padding: 40px 20px; display: flex; justify-content: center; }
+        .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; gap: 24px; }
         
-        .badge-green {
-            background: rgba(16, 185, 129, 0.15); color: var(--accent-green);
-            padding: 3px 6px; border-radius: 5px; font-size: 11px; font-weight: 700; margin-left: 8px;
-            display: flex; align-items: center; gap: 3px;
-        }
-        .badge-red {
-            background: rgba(239, 68, 68, 0.15); color: var(--accent-red);
-            padding: 3px 6px; border-radius: 5px; font-size: 11px; font-weight: 700; margin-left: 8px;
-            display: flex; align-items: center; gap: 3px;
-        }
+        /* Card Style */
+        .main-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 20px; padding: 24px; backdrop-filter: blur(16px); }
+        .info-block { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .info-details p { font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
+        .info-details h3 { font-size: 22px; font-weight: 700; }
         
-        .update-time { font-size: 11px; color: #64748b; }
-
-        /* Grafik Line Chart */
-        .chart-wrapper { width: 100%; height: 160px; margin-top: 20px; position: relative;}
-
-        /* Title Bagian Payment */
-        .payment-title { text-align: center; font-size: 14px; font-weight: 700; letter-spacing: 1.5px; color: #ffffff; margin: 10px 0 2px 0; }
-
-        /* Payment List */
-        .payment-container { display: flex; flex-direction: column; gap: 12px; }
-        .payment-card {
-            background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px;
-            padding: 14px 18px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: all 0.2s ease-in-out;
-        }
-        .payment-card:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.15); transform: translateY(-1px); }
-        .logo-box {
-            width: 44px; height: 44px; border-radius: 10px; background-color: #ffffff;
-            display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-        .text-box { flex: 1; }
-        .text-box h4 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-        .text-box p { font-size: 12px; color: #64748b; }
-        .chevron-icon { color: #475569; }
-
-        /* Footer */
-        .footer-area { text-align: center; color: #475569; font-size: 11px; margin-top: 10px; }
-        .safety-note { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 16px; color: #64748b; font-size: 12px; }
-
-        /* Modal / Pop-up Layout */
-        .modal-mask {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(4, 10, 23, 0.85); backdrop-filter: blur(8px);
-            display: none; align-items: center; justify-content: center; z-index: 9999;
-        }
-        .modal-box {
-            background: #0f2142; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;
-            width: 90%; max-width: 380px; padding: 28px; text-align: center; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-        }
-        .close-modal { position: absolute; top: 18px; right: 18px; color: #64748b; cursor: pointer; transition: color 0.2s; }
-        .close-modal:hover { color: #fff; }
+        /* Chart & Rate */
+        .chart-wrapper { width: 100%; height: 180px; margin-top: 10px; }
+        .rate-value { font-size: 24px; font-weight: 800; color: var(--accent-green); }
         
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.08); border-top: 3px solid var(--accent-blue);
-            border-radius: 50%; width: 44px; height: 44px; animation: spin 0.8s linear infinite; margin: 30px auto;
-        }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .modal-inner { display: none; margin-top: 15px; }
-        .modal-inner img { max-width: 85%; border-radius: 12px; margin: 15px auto 5px auto; display: block; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-        .display-data { background: rgba(4, 10, 23, 0.4); border: 1px solid rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; margin-top: 15px; text-align: left; }
-        .display-data label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-        .display-data h3 { color: var(--accent-yellow); margin-bottom: 12px; font-size: 18px; font-weight: 700; }
-        .display-data p { font-size: 18px; font-weight: 700; letter-spacing: 0.5px; color: #ffffff; }
-
-        /* Floating Custom/Admin Panel */
-        .config-trigger {
-            position: fixed; bottom: 20px; right: 20px; width: 44px; height: 44px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; cursor: pointer; color: #64748b; z-index: 1000; transition: all 0.2s;
-        }
-        .config-trigger:hover { color: #fff; background: rgba(255,255,255,0.1); }
+        /* Payment Section */
+        .payment-title { font-size: 14px; font-weight: 700; letter-spacing: 1.5px; margin-bottom: 10px; }
+        .payment-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px 18px; margin-bottom: 10px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: 0.2s; }
+        .payment-card:hover { background: rgba(255,255,255,0.08); }
         
-        .config-panel {
-            position: fixed; bottom: 75px; right: 20px; background: #0f2142;
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; padding: 16px; width: 260px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: none; flex-direction: column; gap: 12px; z-index: 1000;
-        }
-        .config-panel h5 { font-size: 13px; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; color: #fff; }
-        .config-group { display: flex; flex-direction: column; gap: 4px; }
-        .config-group label { font-size: 11px; color: #94a3b8; }
-        .config-group input { background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 6px; color: #fff; font-size: 13px; font-weight: 600; }
-        .config-btn { background: var(--accent-blue); color: #fff; border: none; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 12px; cursor: pointer; margin-top: 4px; }
-        .config-btn:hover { opacity: 0.9; }
+        /* Config Panel */
+        .config-btn { background: var(--accent-blue); color: #fff; border: none; padding: 10px; border-radius: 8px; width: 100%; margin-top: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>gwewahid</h1>
-            <h2>Save & Payment</h2>
-        </div>
+<div class="container">
+    <div class="header" style="text-align:center;">
+        <h1>gwewahid</h1>
+        <h2 style="color:var(--accent-yellow); font-size: 14px;">Save & Payment System</h2>
+    </div>
 
-        <div class="main-card">
-            <div class="finance-section">
-                <div class="info-block">
-                    <div class="info-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path>
-                            <path d="M4 6v12a2 2 0 0 0 2 2h14v-4"></path>
-                            <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
-                        </svg>
-                    </div>
-                    <div class="info-details">
-                        <p>Saldo Reksadana</p>
-                        <h3 id="display-saldo">0 IDR</h3>
-                    </div>
-                </div>
-                
-                <div class="divider"></div>
-                
-                <div class="info-block">
-                    <div class="info-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-                            <polyline points="17 6 23 6 23 12"></polyline>
-                        </svg>
-                    </div>
-                    <div class="info-details">
-                        <p>Pengeluaran</p>
-                        <h3 id="display-pengeluaran">0 IDR</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="rate-section">
-                <p class="rate-title">NAB REKSADANA INDEKS (ETF)</p>
-                <div class="rate-row">
-                    <h2 class="rate-value" id="nab-rate">Loading...</h2>
-                    <span class="badge-green" id="rate-badge" style="display:none;">-</span>
-                </div>
-                <p class="update-time" id="update-time">• Menarik data live dari bursa...</p>
-            </div>
-
-            <div class="chart-wrapper">
-                <canvas id="lineChartCanvas"></canvas>
+    <div class="main-card">
+        <div class="info-block">
+            <div class="info-details">
+                <p>Saldo Reksadana</p>
+                <h3 id="display-saldo">Rp 0</h3>
             </div>
         </div>
+        <div class="info-block">
+            <div class="info-details">
+                <p>Pengeluaran</p>
+                <h3 id="display-pengeluaran">Rp 0</h3>
+            </div>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,0.1); margin: 15px 0;"></div>
+        <p style="font-size: 10px; color: var(--text-muted);">MAJORIS PASAR UANG INDONESIA</p>
+        <h2 class="rate-value" id="nab-rate">Loading...</h2>
+        <div class="chart-wrapper"><canvas id="lineChartCanvas"></canvas></div>
+    </div>
 
-        <h3 class="payment-title">MY PAYMENT</h3>
+    <h3 class="payment-title">MY PAYMENT</h3>
+    <div id="payment-list">
+        <div class="payment-card" onclick="alert('QRIS Link Ready')"><h4>QRIS</h4></div>
+        <div class="payment-card" onclick="alert('SeaBank Details')"><h4>SeaBank</h4></div>
+        <div class="payment-card" onclick="alert('DANA Details')"><h4>DANA</h4></div>
+    </div>
+
+    <div class="main-card">
+        <h5>Kustomisasi Data</h5>
+        <input type="text" id="input-saldo" placeholder="Input Saldo" style="width:100%; padding:8px; margin-top:10px;">
+        <input type="text" id="input-pengeluaran" placeholder="Input Pengeluaran" style="width:100%; padding:8px; margin-top:10px;">
+        <button class="config-btn" onclick="saveData()">Simpan Perubahan</button>
+    </div>
+</div>
+
+<script>
+    // 1. Data Reksadana Majoris (Simulasi Performa)
+    function initApp() {
+        const data = [1200, 1210, 1225, 1240, 1255, 1270, 1285];
+        document.getElementById('nab-rate').innerText = `Rp ${data[data.length-1].toLocaleString('id-ID')}`;
         
-        <div class="payment-container">
-            <div class="payment-card" onclick="triggerPayment('qris')">
-                <div class="logo-box"><img src="qris.png" alt="QRIS" onerror="this.src='https://via.placeholder.com/45?text=QRIS'"></div>
-                <div class="text-box">
-                    <h4>QRIS</h4>
-                    <p>Scan QR Code</p>
-                </div>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-            <div class="payment-card" onclick="triggerPayment('seabank')">
-                <div class="logo-box"><img src="seabank.png" alt="SeaBank" onerror="this.src='https://via.placeholder.com/45?text=SB'"></div>
-                <div class="text-box">
-                    <h4>SeaBank</h4>
-                    <p>Transfer melalui SeaBank</p>
-                </div>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-            <div class="payment-card" onclick="triggerPayment('dana')">
-                <div class="logo-box"><img src="dana.png" alt="DANA" onerror="this.src='https://via.placeholder.com/45?text=DANA'"></div>
-                <div class="text-box">
-                    <h4>DANA</h4>
-                    <p>Transfer melalui DANA</p>
-                </div>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-            <div class="payment-card" onclick="triggerPayment('gopay')">
-                <div class="logo-box"><img src="gopay.png" alt="GoPay" onerror="this.src='https://via.placeholder.com/45?text=GoPay'"></div>
-                <div class="text-box">
-                    <h4>GoPay</h4>
-                    <p>Transfer melalui GoPay</p>
-                </div>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-            <div class="payment-card" onclick="triggerPayment('binance')">
-                <div class="logo-box"><img src="binance.png" alt="Binance" onerror="this.src='https://via.placeholder.com/45?text=BNB'"></div>
-                <div class="text-box">
-                    <h4>Binance</h4>
-                    <p>Transfer melalui Binance</p>
-                </div>
-                <svg class="chevron-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-        </div>
+        // Load local storage
+        document.getElementById('display-saldo').innerText = `Rp ${localStorage.getItem('saldo') || '0'}`;
+        document.getElementById('display-pengeluaran').innerText = `Rp ${localStorage.getItem('pengeluaran') || '0'}`;
 
-        <div class="footer-area">
-            <div class="safety-note">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
-                <span>Semua donasi akan digunakan untuk pengembangan konten.</span>
-            </div>
-            <p>@gwewahid payment community co.id</p>
-        </div>
-    </div>
+        renderChart(data);
+    }
 
-    <div class="modal-mask" id="globalModal">
-        <div class="modal-box">
-            <svg class="close-modal" onclick="dismissModal()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-            <h2 id="modalHeader" style="font-size: 18px; font-weight: 700; color: #fff;">Memuat...</h2>
-            <div class="spinner" id="modalSpinner"></div>
-            <div class="modal-inner" id="modalContainer"></div>
-        </div>
-    </div>
+    function renderChart(data) {
+        const ctx = document.getElementById('lineChartCanvas').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: { labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul'], datasets: [{ data: data, borderColor: '#10b981', fill: true, backgroundColor: 'rgba(16, 185, 129, 0.1)' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+        });
+    }
 
-    <div class="config-trigger" onclick="toggleConfigPanel()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-    </div>
-    <div class="config-panel" id="configPanel">
-        <h5>Kustomisasi Tampilan</h5>
-        <div class="config-group">
-            <label>Saldo Reksadana:</label>
-            <input type="text" id="input-saldo" placeholder="Contoh: 0">
-        </div>
-        <div class="config-group">
-            <label>Pengeluaran:</label>
-            <input type="text" id="input-pengeluaran" placeholder="Contoh: 0">
-        </div>
-        <button class="config-btn" onclick="saveCustomData()">Simpan Perubahan</button>
-    </div>
+    function saveData() {
+        localStorage.setItem('saldo', document.getElementById('input-saldo').value);
+        localStorage.setItem('pengeluaran', document.getElementById('input-pengeluaran').value);
+        location.reload();
+    }
 
-    <script>
-        let lineChartInstance = null;
-
-        // --- 1. MENGAMBIL DATA OTOMATIS (BYPASS API YAHOO FINANCE & PROXY) ---
-        async function fetchAutoReksadana() {
-            try {
-                // Endpoint Yahoo Finance API untuk ETF Reksadana Indonesia (Premier ETF IDX30 - Ticker: XIIT.JK)
-                const targetUrl = 'https://query1.finance.yahoo.com/v8/finance/chart/XIIT.JK?interval=1d&range=1mo';
-                
-                // Menggunakan AllOrigins sebagai Proxy Server untuk membypass blokir Browser (CORS)
-                const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-                
-                const response = await fetch(proxyUrl);
-                if (!response.ok) throw new Error('Network response was not ok');
-                
-                const json = await response.json();
-                const result = json.chart.result[0];
-                const timestamps = result.timestamp;
-                const closePrices = result.indicators.quote[0].close;
-
-                // Membersihkan data kosong (hari sabtu/minggu bursa tutup)
-                let validData = [];
-                for(let i = 0; i < timestamps.length; i++) {
-                    if(closePrices[i] !== null) {
-                        validData.push({
-                            date: new Date(timestamps[i] * 1000),
-                            price: closePrices[i]
-                        });
-                    }
-                }
-
-                // Ambil maksimal 14 hari perdagangan terakhir untuk grafik
-                validData = validData.slice(-14);
-                
-                const labels = validData.map((d, index) => {
-                    if(index === validData.length - 1) return 'Live/EOD';
-                    return d.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
-                });
-                const prices = validData.map(d => parseFloat(d.price.toFixed(2)));
-
-                // Kalkulasi harga terkini dan perubahan
-                const currentPrice = prices[prices.length - 1];
-                const previousPrice = prices[prices.length - 2];
-                const percentChange = (((currentPrice - previousPrice) / previousPrice) * 100).toFixed(2);
-                const isUp = percentChange >= 0;
-
-                // Update Tampilan DOM
-                const formattedRate = new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(currentPrice);
-                document.getElementById('nab-rate').innerText = `Rp ${formattedRate}`;
-                
-                const badge = document.getElementById('rate-badge');
-                badge.style.display = 'inline-flex';
-                badge.className = isUp ? 'badge-green' : 'badge-red';
-                
-                const arrowSvg = isUp 
-                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>`;
-                
-                badge.innerHTML = `${arrowSvg} ${isUp ? '+' : ''}${percentChange}%`;
-                
-                // Format waktu EOD terakhir
-                const lastDateStr = validData[validData.length - 1].date.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' });
-                document.getElementById('update-time').innerText = `• Market EOD (Update Otomatis): ${lastDateStr}`;
-
-                // Render Chart
-                renderModernLineChart(labels, prices, isUp);
-
-            } catch (error) {
-                console.error("Gagal mengambil data otomatis, masuk ke mode fallback:", error);
-                document.getElementById('nab-rate').innerText = "Rp 1.485";
-                document.getElementById('update-time').innerText = "• Data API Terhalang Koneksi Internet";
-            }
-        }
-
-        // --- 2. RENDER GRAFIK GARIS (WARNA DINAMIS MENGIKUTI NAIK/TURUN) ---
-        function renderModernLineChart(labels, dataPoints, isUp) {
-            const canvasCtx = document.getElementById('lineChartCanvas').getContext('2d');
-            
-            // Set warna: Hijau jika Reksadana naik hari ini, Merah jika sedang turun
-            const mainColor = isUp ? '#10b981' : '#ef4444';
-            const gradientColorStart = isUp ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)';
-            const gradientColorEnd = isUp ? 'rgba(16, 185, 129, 0.0)' : 'rgba(239, 68, 68, 0.0)';
-
-            let fillGradient = canvasCtx.createLinearGradient(0, 0, 0, 160);
-            fillGradient.addColorStop(0, gradientColorStart);
-            fillGradient.addColorStop(1, gradientColorEnd);
-
-            if (lineChartInstance) lineChartInstance.destroy(); 
-
-            const minPrice = Math.min(...dataPoints);
-            const maxPrice = Math.max(...dataPoints);
-            const padding = (maxPrice - minPrice) * 0.3 || 2;
-
-            lineChartInstance = new Chart(canvasCtx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: dataPoints,
-                        borderColor: mainColor,
-                        borderWidth: 3,
-                        backgroundColor: fillGradient,
-                        fill: true,
-                        tension: 0.4, 
-                        pointRadius: dataPoints.map((_, i) => i === dataPoints.length - 1 ? 5 : 0), 
-                        pointBackgroundColor: '#ffffff',
-                        pointBorderColor: mainColor,
-                        pointBorderWidth: 2,
-                        pointHoverRadius: 6
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { 
-                        legend: { display: false },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: { label: function(context) { return `Rp ${context.raw.toLocaleString('id-ID')}`; } }
-                        }
-                    },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 6 } },
-                        y: {
-                            min: Math.floor(minPrice - padding), max: Math.ceil(maxPrice + padding),
-                            grid: { color: 'rgba(255,255,255,0.04)', drawBorder: false },
-                            ticks: { color: '#64748b', font: { size: 10 }, maxTicksLimit: 5, callback: function(value) { return value.toLocaleString('id-ID'); } }
-                        }
-                    },
-                    interaction: { mode: 'nearest', axis: 'x', intersect: false }
-                }
-            });
-        }
-
-        // --- 3. SISTEM KUSTOMISASI SALDO ---
-        function initCustomData() {
-            let localSaldo = localStorage.getItem('custom_saldo') || '0';
-            let localPengeluaran = localStorage.getItem('custom_pengeluaran') || '0';
-            document.getElementById('display-saldo').innerText = localSaldo.includes('IDR') ? localSaldo : `${localSaldo} IDR`;
-            document.getElementById('display-pengeluaran').innerText = localPengeluaran.includes('IDR') ? localPengeluaran : `${localPengeluaran} IDR`;
-            document.getElementById('input-saldo').value = localSaldo.replace(' IDR', '');
-            document.getElementById('input-pengeluaran').value = localPengeluaran.replace(' IDR', '');
-        }
-
-        function toggleConfigPanel() {
-            const panel = document.getElementById('configPanel');
-            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function saveCustomData() {
-            const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
-            const valPengeluaran = document.getElementById('input-pengeluaran').value.trim() || '0';
-            localStorage.setItem('custom_saldo', valSaldo);
-            localStorage.setItem('custom_pengeluaran', valPengeluaran);
-            initCustomData();
-            toggleConfigPanel();
-        }
-
-        // --- 4. MODAL PAYMENT ---
-        const dbPayment = {
-            qris: { header: "Scan QRIS Donasi", isImage: true, resource: "qris.png" },
-            seabank: { header: "Transfer Bank", isImage: false, owner: "Wahid", number: "9012 8873 2190" },
-            dana: { header: "Transfer E-Wallet DANA", isImage: false, owner: "Wahid / gwewahid", number: "0812 3456 7890" },
-            gopay: { header: "Transfer E-Wallet GoPay", isImage: false, owner: "Wahid / gwewahid", number: "0812 3456 7890" },
-            binance: { header: "Binance Pay ID", isImage: false, owner: "gwewahid Crypto Account", number: "Pay ID: 77210923" }
-        };
-
-        const maskElement = document.getElementById('globalModal');
-        const spinnerElement = document.getElementById('modalSpinner');
-        const containerElement = document.getElementById('modalContainer');
-        const headerTextElement = document.getElementById('modalHeader');
-
-        function triggerPayment(idMethod) {
-            maskElement.style.display = 'flex';
-            spinnerElement.style.display = 'block';
-            containerElement.style.display = 'none';
-            headerTextElement.innerText = "Memproses...";
-
-            const targetData = dbPayment[idMethod];
-
-            setTimeout(() => {
-                spinnerElement.style.display = 'none';
-                headerTextElement.innerText = targetData.header;
-                
-                if (targetData.isImage) {
-                    containerElement.innerHTML = `<p style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">Silakan scan kode QR di bawah ini:</p><img src="${targetData.resource}" alt="QRIS" onerror="this.src='https://via.placeholder.com/250?text=Gambar+Belum+Ada'">`;
-                } else {
-                    containerElement.innerHTML = `<div class="display-data"><label>Atas Nama / Pemilik:</label><h3>${targetData.owner}</h3><label>Nomor Rekening / ID Tujuan:</label><p>${targetData.number}</p></div>`;
-                }
-                containerElement.style.display = 'block';
-            }, 800); 
-        }
-
-        function dismissModal() { maskElement.style.display = 'none'; }
-        window.onclick = function(e) { if (e.target == maskElement) dismissModal(); }
-
-        window.onload = function() {
-            initCustomData();
-            fetchAutoReksadana(); // Panggil fungsi otomatis
-        };
-    </script>
+    window.onload = initApp;
+</script>
 </body>
 </html>
