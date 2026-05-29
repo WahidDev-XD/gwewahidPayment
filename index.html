@@ -478,4 +478,142 @@
 
         function saveCustomData() {
             const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
-            const valPemasukan = document.getElementById('input-p
+            const valPemasukan = document.getElementById('input-pemasukan').value.trim() || '0';
+            
+            localStorage.setItem('custom_saldo', valSaldo);
+            localStorage.setItem('custom_pemasukan', valPemasukan);
+            
+            initCustomData();
+            toggleConfigPanel();
+        }
+
+        // --- 2. GRAFIK USD TO IDR ---
+        function initUsdChart() {
+            const ctx = document.getElementById('usdIdrChart').getContext('2d');
+            // Simulasi pergerakan kurs USD
+            const chartData = [15950, 16000, 16120, 16080, 16150, 16200, 16250]; 
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+                    datasets: [{
+                        data: chartData,
+                        borderColor: '#fde047', 
+                        borderWidth: 2,
+                        backgroundColor: 'rgba(253, 224, 71, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 2,
+                        pointBackgroundColor: '#fde047'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: true }
+                    },
+                    scales: {
+                        x: { 
+                            display: true, 
+                            ticks: { color: '#64748b', font: { size: 10 } },
+                            grid: { display: false } 
+                        },
+                        y: { 
+                            display: true, 
+                            ticks: { color: '#64748b', font: { size: 10 } },
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' } 
+                        }
+                    }
+                }
+            });
+        }
+
+        // --- 3. DATABASE MODAL PAYMENT & SIMULASI LOADING ---
+        const dbPayment = {
+            qris: {
+                header: "Scan QRIS Donasi",
+                isImage: true,
+                resource: "qrisPay.png" 
+            },
+            seabank: {
+                header: "Transfer Bank",
+                isImage: false,
+                owner: "Wahid",
+                number: "9012 8873 2190"
+            },
+            dana: {
+                header: "Transfer E-Wallet DANA",
+                isImage: false,
+                owner: "Wahid / gwewahid",
+                number: "0812 3456 7890"
+            },
+            gopay: {
+                header: "Transfer E-Wallet GoPay",
+                isImage: false,
+                owner: "Wahid / gwewahid",
+                number: "0812 3456 7890"
+            },
+            binance: {
+                header: "Binance Pay ID",
+                isImage: false,
+                owner: "gwewahid Crypto Account",
+                number: "Pay ID: 77210923"
+            }
+        };
+
+        const maskElement = document.getElementById('globalModal');
+        const spinnerElement = document.getElementById('modalSpinner');
+        const containerElement = document.getElementById('modalContainer');
+        const headerTextElement = document.getElementById('modalHeader');
+
+        function triggerPayment(idMethod) {
+            maskElement.style.display = 'flex';
+            spinnerElement.style.display = 'block';
+            containerElement.style.display = 'none';
+            headerTextElement.innerText = "Memproses...";
+
+            const targetData = dbPayment[idMethod];
+
+            setTimeout(() => {
+                spinnerElement.style.display = 'none';
+                headerTextElement.innerText = targetData.header;
+                
+                if (targetData.isImage) {
+                    containerElement.innerHTML = `
+                        <p style="font-size: 13px; color: #94a3b8; margin-bottom: 5px;">Silakan scan kode QR di bawah ini:</p>
+                        <img src="${targetData.resource}" alt="QRIS" onerror="this.src='https://via.placeholder.com/250?text=Gambar+qrisPay.png+Belum+Ada'">
+                    `;
+                } else {
+                    containerElement.innerHTML = `
+                        <div class="display-data">
+                            <label>Atas Nama / Pemilik:</label>
+                            <h3>${targetData.owner}</h3>
+                            <label>Nomor Rekening / ID Tujuan:</label>
+                            <p>${targetData.number}</p>
+                        </div>
+                    `;
+                }
+                containerElement.style.display = 'block';
+            }, 1000); 
+        }
+
+        function dismissModal() {
+            maskElement.style.display = 'none';
+        }
+
+        window.onclick = function(e) {
+            if (e.target == maskElement) {
+                dismissModal();
+            }
+        }
+
+        window.onload = function() {
+            initCustomData();
+            initUsdChart();
+        };
+    </script>
+</body>
+</html>
