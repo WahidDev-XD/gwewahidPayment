@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Save & Payment - gwewahid</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
@@ -108,6 +109,54 @@
             height: 1px;
             background: rgba(255, 255, 255, 0.08);
             margin: 18px 0;
+        }
+
+        /* Kurs USDT to IDR Section */
+        .rate-section {
+            text-align: center;
+            margin-top: 5px;
+        }
+        .rate-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        .rate-row {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 6px;
+        }
+        .rate-value {
+            font-size: 26px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .badge-green {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            padding: 3px 6px;
+            border-radius: 5px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        .update-time {
+            font-size: 11px;
+            color: #64748b;
+        }
+
+        /* Grafik Line Chart */
+        .chart-wrapper {
+            width: 100%;
+            height: 160px;
+            margin-top: 20px;
         }
 
         /* Title Bagian Payment */
@@ -338,6 +387,27 @@
                     </div>
                 </div>
             </div>
+
+            <div class="divider"></div>
+
+            <div class="rate-section">
+                <p class="rate-title">USDT TO IDR</p>
+                <div class="rate-row">
+                    <h2 class="rate-value" id="usd-rate">1$ / 17.800</h2>
+                    <span class="badge-green" id="rate-badge">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="19" x2="12" y2="5"></line>
+                            <polyline points="5 12 12 5 19 12"></polyline>
+                        </svg>
+                        LIVE
+                    </span>
+                </div>
+                <p class="update-time" id="update-time">• Update: Menghubungkan ke Crypto API...</p>
+            </div>
+
+            <div class="chart-wrapper">
+                <canvas id="lineChartCanvas"></canvas>
+            </div>
         </div>
 
         <h3 class="payment-title">MY PAYMENT</h3>
@@ -422,66 +492,13 @@
     </div>
 
     <script>
-        // --- 1. SISTEM KUSTOMISASI DATA MANDIRI (LOCALSTORAGE) ---
-        function initCustomData() {
-            let localSaldo = localStorage.getItem('custom_saldo') || '0';
-            let localPengeluaran = localStorage.getItem('custom_pengeluaran') || '0';
-            
-            document.getElementById('display-saldo').innerText = localSaldo.includes('IDR') ? localSaldo : `${localSaldo} IDR`;
-            document.getElementById('display-pengeluaran').innerText = localPengeluaran.includes('IDR') ? localPengeluaran : `${localPengeluaran} IDR`;
-            
-            document.getElementById('input-saldo').value = localSaldo.replace(' IDR', '');
-            document.getElementById('input-pengeluaran').value = localPengeluaran.replace(' IDR', '');
-        }
+        let lineChartInstance = null;
+        let isFetching = false;
 
-        function toggleConfigPanel() {
-            const panel = document.getElementById('configPanel');
-            panel.style.display = (panel.style.display === 'flex') ? 'none' : 'flex';
-        }
+        // --- 1. AMBIL DATA REAL-TIME KURS DARI BINANCE ---
+        async function fetchCryptoData() {
+            if (isFetching) return;
+            isFetching = true;
 
-        function saveCustomData() {
-            const valSaldo = document.getElementById('input-saldo').value.trim() || '0';
-            const valPengeluaran = document.getElementById('input-pengeluaran').value.trim() || '0';
-            
-            localStorage.setItem('custom_saldo', valSaldo);
-            localStorage.setItem('custom_pengeluaran', valPengeluaran);
-            
-            initCustomData();
-            toggleConfigPanel();
-        }
-
-        // --- 2. DATABASE MODAL PAYMENT & SIMULASI LOADING ---
-        const dbPayment = {
-            qris: {
-                header: "Scan QRIS Donasi",
-                isImage: true,
-                resource: "qrisPay.png" 
-            },
-            seabank: {
-                header: "Transfer Bank",
-                isImage: false,
-                owner: "Wahid",
-                number: "9012 8873 2190"
-            },
-            dana: {
-                header: "Transfer E-Wallet DANA",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            gopay: {
-                header: "Transfer E-Wallet GoPay",
-                isImage: false,
-                owner: "Wahid / gwewahid",
-                number: "0812 3456 7890"
-            },
-            binance: {
-                header: "Binance Pay ID",
-                isImage: false,
-                owner: "gwewahid Crypto Account",
-                number: "Pay ID: 77210923"
-            }
-        };
-
-        const maskElement = document.getElementById('globalModal');
-        const spinnerElement = document.getElementById('modalSpinner'
+            try {
+                // Endpoint 1: Ambil Harga Saat Ini (
